@@ -10,7 +10,6 @@ import {
   DefaultTheme,
   DarkTheme,
 } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { ColorSchemeName, Pressable, Text, View } from "react-native";
@@ -19,13 +18,8 @@ import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
 import ModalScreen from "../screens/ModalScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
-import TabOneScreen from "../screens/TabOneScreen";
-import TabTwoScreen from "../screens/TabTwoScreen";
-import {
-  RootStackParamList,
-  RootTabParamList,
-  RootTabScreenProps,
-} from "../types";
+
+import { RootStackParamList } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
 import HomeScreen from "../screens/HomeScreen";
 import BrandScreen from "../screens/BrandScreen";
@@ -73,10 +67,6 @@ function RootNavigator() {
   );
 }
 
-/**
- * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
- * https://reactnavigation.org/docs/bottom-tab-navigator
- */
 const BottomTab: any = createBottomTabNavigator();
 
 function BottomTabNavigator() {
