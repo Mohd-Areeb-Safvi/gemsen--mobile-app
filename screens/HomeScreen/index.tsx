@@ -44,7 +44,7 @@ const HomeScreen = () => {
       </View>
       <View style={{ marginTop: 30 }}>
         <ScrollView
-          scrollEventThrottle={14}
+          scrollEventThrottle={1}
           onScroll={(e: any) => {
             const indexValue = e.nativeEvent.contentOffset.x / width;
             setIndexValue(Math.round(indexValue));
