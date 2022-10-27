@@ -9,112 +9,63 @@ import {
 import React, { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import theme from "../../theme";
+import CategorySection from "./CategorySection";
+import ScrollImages from "./ScrollImages";
 const { width } = Dimensions.get("window");
 const HomeScreen = () => {
-  const [indexValue, setIndexValue] = useState(0);
-  const imageScroller = [
-    {
-      id: 1, //0
-      img: "https://gemsen.com/media/wysiwyg/MobileAudio_1518x516_2_1.jpg",
-    },
-    {
-      id: 2, //1
-      img: "https://gemsen.com/media/wysiwyg/marine.jpg",
-    },
-    {
-      id: 3, //2
-      img: "https://gemsen.com/media/wysiwyg/powersports.jpg",
-    },
-  ];
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <View
-        style={{
-          width: "100%",
-          backgroundColor: "#222",
-          paddingVertical: 20,
-        }}
-      >
-        <Image
-          source={{
-            uri: "https://gemsen.com/media/logo/stores/1/cropped-logo_1_.png",
-          }}
-          style={{ width: 50, height: 50, marginLeft: 20 }}
-        />
-      </View>
-      <View style={{ marginTop: 30 }}>
-        <ScrollView
-          scrollEventThrottle={1}
-          onScroll={(e: any) => {
-            const indexValue = e.nativeEvent.contentOffset.x / width;
-            setIndexValue(Math.round(indexValue));
-          }}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          style={{}}
-        >
-          {imageScroller?.map((item, index) => {
-            return (
-              <View key={item?.id}>
-                <View
-                  style={{
-                    width: width * 0.9,
-                    marginHorizontal: 20,
-                    alignSelf: "center",
-                    height: 100,
-                  }}
-                >
-                  <Image
-                    source={{ uri: item.img }}
-                    style={{ width: "100%", height: "100%" }}
-                  />
-                </View>
-              </View>
-            );
-          })}
-        </ScrollView>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          style={{ alignSelf: "center", marginTop: 10 }}
-        >
-          {imageScroller?.map((item, index) => {
-            return (
-              <View key={item?.id}>
-                <View
-                  style={{
-                    marginHorizontal: 5,
-                    alignSelf: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <Ionicons
-                    color={indexValue === index ? theme.colors.primary : "#000"}
-                    size={12}
-                    name={
-                      indexValue === index ? "ellipse-sharp" : "ellipse-outline"
-                    }
-                  />
-                </View>
-              </View>
-            );
-          })}
-        </ScrollView>
-      </View>
-      <View
-        style={{
-          alignSelf: "center",
-        }}
-      >
-        <Text
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View
           style={{
-            fontFamily: theme.font.fontSpaceMono,
-            color: theme.colors.primary,
+            width: "100%",
+            backgroundColor: "#222",
+            paddingVertical: 20,
           }}
         >
-          Welcome to Gemsen
-        </Text>
-      </View>
+          <Image
+            source={{
+              uri: "https://gemsen.com/media/logo/stores/1/cropped-logo_1_.png",
+            }}
+            style={{ width: 50, height: 50, marginLeft: 20 }}
+          />
+        </View>
+        <ScrollImages />
+        <View
+          style={{
+            alignSelf: "center",
+          }}
+        >
+          <Text
+            style={{
+              fontFamily: theme.font.fontRobotoBold,
+              color: theme.colors.black,
+              fontSize: 20,
+              textAlign: "center",
+              marginVertical: 30,
+              textTransform: "uppercase",
+              letterSpacing: 2,
+            }}
+          >
+            Welcome to Gemsen
+          </Text>
+          <Text
+            style={{
+              // fontFamily: theme.font.fontSpaceMono,
+              color: theme.colors.black,
+              textAlign: "center",
+              fontSize: 14,
+              lineHeight: 26,
+            }}
+          >
+            We are a national consumer electronics distributor supplying
+            Canadian retailers with the finest brands of audio / video products
+            in the home, mobile, marine and power sports categories for over 35
+            years.
+          </Text>
+        </View>
+        <CategorySection />
+      </ScrollView>
     </SafeAreaView>
   );
 };

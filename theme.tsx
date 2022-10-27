@@ -19,6 +19,8 @@ const theme = {
 
   font: {
     fontSpaceMono: "space-mono",
+    fontRobotoBlack: "roboto-black",
+    fontRobotoBold: "roboto-bold",
   },
 };
 

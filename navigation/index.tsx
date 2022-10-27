@@ -25,6 +25,7 @@ import HomeScreen from "../screens/HomeScreen";
 import BrandScreen from "../screens/BrandScreen";
 import ShopScreen from "../screens/ShopScreen";
 import AccountScreen from "../screens/AccountScreen";
+import MobileCategoryScreen from "../screens/MobileCategoryScreen";
 
 export default function Navigation({
   colorScheme,
@@ -41,11 +42,7 @@ export default function Navigation({
   );
 }
 
-/**
- * A root stack navigator is often used for displaying modals on top of all other content.
- * https://reactnavigation.org/docs/modal
- */
-const Stack = createStackNavigator<RootStackParamList>();
+const Stack: any = createStackNavigator();
 
 function RootNavigator() {
   return (
@@ -56,13 +53,10 @@ function RootNavigator() {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="NotFound"
-        component={NotFoundScreen}
-        options={{ title: "Oops!" }}
+        name="MobileCategoryScreen"
+        component={MobileCategoryScreen}
+        options={{ headerShown: false }}
       />
-      <Stack.Group screenOptions={{ presentation: "modal" }}>
-        <Stack.Screen name="Modal" component={ModalScreen} />
-      </Stack.Group>
     </Stack.Navigator>
   );
 }
