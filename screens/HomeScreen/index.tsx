@@ -11,6 +11,7 @@ import { Ionicons } from "@expo/vector-icons";
 import theme from "../../theme";
 import CategorySection from "./CategorySection";
 import ScrollImages from "./ScrollImages";
+import FooterSection from "../FooterSection";
 const { width } = Dimensions.get("window");
 const HomeScreen = () => {
   return (
@@ -65,6 +66,7 @@ const HomeScreen = () => {
           </Text>
         </View>
         <CategorySection />
+        <FooterSection />
       </ScrollView>
     </SafeAreaView>
   );

@@ -12,7 +12,7 @@ const CategorySection = () => {
       category: "Home",
       description:
         "Gemsen’s Home division represents some of the finest brands in home audio/theatre products ranging from cables, turntables, speakers, A/V furniture and more.",
-      route: "",
+      route: "HomeCategoryScreen",
     },
     {
       id: 2,
@@ -21,7 +21,7 @@ const CategorySection = () => {
       category: "Marine",
       description:
         "Gemsen’s Marine division is home of the industry’s most popular brands in marine audio specializing in speakers, source units, processors and amplifiers.",
-      route: "",
+      route: "MarineScreen",
     },
     {
       id: 3,
@@ -39,7 +39,7 @@ const CategorySection = () => {
       category: "Power Sport",
       description:
         "Gemsen’s Home division represents some of the finest brands in home audio/theatre products ranging from cables, turntables, speakers, A/V furniture and more.",
-      route: "MobileCategoryScreen",
+      route: "PowerSportScreen",
     },
   ];
   return (

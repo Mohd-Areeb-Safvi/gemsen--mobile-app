@@ -26,6 +26,9 @@ import BrandScreen from "../screens/BrandScreen";
 import ShopScreen from "../screens/ShopScreen";
 import AccountScreen from "../screens/AccountScreen";
 import MobileCategoryScreen from "../screens/MobileCategoryScreen";
+import PowerSportScreen from "../screens/PowerSportScreen";
+import HomeCategoryScreen from "../screens/HomeCategoryScreen";
+import MarineScreen from "../screens/MarineScreen";
 
 export default function Navigation({
   colorScheme,
@@ -55,6 +58,21 @@ function RootNavigator() {
       <Stack.Screen
         name="MobileCategoryScreen"
         component={MobileCategoryScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="PowerSportScreen"
+        component={PowerSportScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="HomeCategoryScreen"
+        component={HomeCategoryScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="MarineScreen"
+        component={MarineScreen}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

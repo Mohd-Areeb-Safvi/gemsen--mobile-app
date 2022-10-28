@@ -1,12 +1,12 @@
 import { View, Text, SafeAreaView } from "react-native";
 import React from "react";
 
-const MobileCategoryScreen = () => {
+const MarineScreen = () => {
   return (
     <SafeAreaView>
-      <Text>MobileCategoryScreen</Text>
+      <Text>MarineScreen</Text>
     </SafeAreaView>
   );
 };
 
-export default MobileCategoryScreen;
+export default MarineScreen;
