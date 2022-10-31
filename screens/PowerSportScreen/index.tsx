@@ -1,6 +1,6 @@
 import { View, Text, SafeAreaView, ScrollView } from "react-native";
 import React from "react";
-import FooterSection from "../FooterSection";
+import FooterSection from "../../components/FooterSection";
 
 const PowerSportScreen = () => {
   return (

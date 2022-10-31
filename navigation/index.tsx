@@ -29,6 +29,7 @@ import MobileCategoryScreen from "../screens/MobileCategoryScreen";
 import PowerSportScreen from "../screens/PowerSportScreen";
 import HomeCategoryScreen from "../screens/HomeCategoryScreen";
 import MarineScreen from "../screens/MarineScreen";
+import BrandDetailsScreen from "../screens/BrandDetailsScreen";
 
 export default function Navigation({
   colorScheme,
@@ -68,6 +69,11 @@ function RootNavigator() {
       <Stack.Screen
         name="HomeCategoryScreen"
         component={HomeCategoryScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="BrandDetailsScreen"
+        component={BrandDetailsScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen

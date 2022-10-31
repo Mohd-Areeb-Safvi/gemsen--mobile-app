@@ -11,26 +11,14 @@ import { Ionicons } from "@expo/vector-icons";
 import theme from "../../theme";
 import CategorySection from "./CategorySection";
 import ScrollImages from "./ScrollImages";
-import FooterSection from "../FooterSection";
+import FooterSection from "../../components/FooterSection";
+import Header from "../../components/Header";
 const { width } = Dimensions.get("window");
 const HomeScreen = () => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View
-          style={{
-            width: "100%",
-            backgroundColor: "#222",
-            paddingVertical: 20,
-          }}
-        >
-          <Image
-            source={{
-              uri: "https://gemsen.com/media/logo/stores/1/cropped-logo_1_.png",
-            }}
-            style={{ width: 50, height: 50, marginLeft: 20 }}
-          />
-        </View>
+        <Header value={"DashBoard"} />
         <ScrollImages />
         <View
           style={{

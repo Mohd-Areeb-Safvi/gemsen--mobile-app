@@ -1,10 +1,17 @@
-import { View, Text, SafeAreaView } from "react-native";
+import { View, Text, SafeAreaView, ScrollView } from "react-native";
 import React from "react";
+import Header from "../../components/Header";
+import FooterSection from "../../components/FooterSection";
+import HomeCategoryDetails from "../../components/HomeCategoryDetails";
 
 const HomeCategoryScreen = () => {
   return (
-    <SafeAreaView>
-      <Text>HomeCategoryScreen</Text>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Header value={"Home"} />
+        <HomeCategoryDetails />
+        <FooterSection />
+      </ScrollView>
     </SafeAreaView>
   );
 };
