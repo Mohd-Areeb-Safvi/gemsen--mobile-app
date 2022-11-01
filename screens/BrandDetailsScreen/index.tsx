@@ -4,6 +4,7 @@ import {
   SafeAreaView,
   Image,
   TouchableOpacity,
+  Linking,
 } from "react-native";
 import React from "react";
 import Header from "../../components/Header";
@@ -12,6 +13,8 @@ import theme from "../../theme";
 
 const BrandDetailsScreen = ({ route }: any) => {
   const { data } = route.params;
+
+  console.log(data);
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Header value={data.txt} />
@@ -35,6 +38,9 @@ const BrandDetailsScreen = ({ route }: any) => {
           </Text>
         </View>
         <TouchableOpacity
+          onPress={() => {
+            Linking?.openURL(data?.link);
+          }}
           style={{
             width: 100,
             paddingVertical: 10,

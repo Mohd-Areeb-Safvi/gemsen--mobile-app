@@ -5,18 +5,30 @@ import {
   Image,
   ScrollView,
   Dimensions,
+  TouchableOpacity,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import theme from "../../theme";
 import CategorySection from "./CategorySection";
 import ScrollImages from "./ScrollImages";
 import FooterSection from "../../components/FooterSection";
 import Header from "../../components/Header";
+import { useAtom } from "jotai";
+import { user } from "../../stores/user";
 const { width } = Dimensions.get("window");
 const HomeScreen = () => {
+  const [data, setData] = useAtom(user);
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
+      <TouchableOpacity
+        onPress={() => {
+          setData(true);
+        }}
+      >
+        <Text>Login</Text>
+      </TouchableOpacity>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Header value={"DashBoard"} />
         <ScrollImages />

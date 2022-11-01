@@ -10,8 +10,8 @@ const HomeCategoryDetails = () => {
       id: 1,
       img: "https://gemsen.com/media/wysiwyg/3may.png",
       img2: "https://gemsen.com/media/wysiwyg/dynamat.jpg",
-      txt: "Dynamate",
-      link: "",
+      txt: "Boss Audio",
+      link: "https://bossaudio.com/",
       desc: ", a Dynamic Control brand, is recognized by consumers around the world as a quality product for solutions to unwanted noise and vibration. The Dynamat brand maintains the dominant market share in Car Audio and Automotive Restoration acoustic solutions. Dynamic Control also provides a broad range of unique product solutions for home acoustics, computers, appliances, and Original Equipment Manufacturers.",
     },
     {

@@ -1,9 +1,10 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import theme from "../../../theme";
 import { useNavigation } from "@react-navigation/native";
 
 const CategorySection = () => {
+  const [data, setData] = useState("");
   const navigation = useNavigation();
   const category = [
     {

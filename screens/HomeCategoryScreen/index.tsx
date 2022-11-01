@@ -1,8 +1,10 @@
 import { View, Text, SafeAreaView, ScrollView } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "../../components/Header";
 import FooterSection from "../../components/FooterSection";
 import HomeCategoryDetails from "../../components/HomeCategoryDetails";
+import { useAtom } from "jotai";
+import { user } from "../../stores/user";
 
 const HomeCategoryScreen = () => {
   return (

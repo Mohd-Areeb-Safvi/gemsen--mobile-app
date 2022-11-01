@@ -9,10 +9,17 @@ import {
   NavigationContainer,
   DefaultTheme,
   DarkTheme,
+  useNavigation,
 } from "@react-navigation/native";
 import * as React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import { ColorSchemeName, Pressable, Text, View } from "react-native";
+import {
+  ColorSchemeName,
+  Pressable,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
@@ -30,6 +37,10 @@ import PowerSportScreen from "../screens/PowerSportScreen";
 import HomeCategoryScreen from "../screens/HomeCategoryScreen";
 import MarineScreen from "../screens/MarineScreen";
 import BrandDetailsScreen from "../screens/BrandDetailsScreen";
+import { useAtom } from "jotai";
+import { user } from "../stores/user";
+import LoginScreen from "../screens/AuthScreens/LoginScreen";
+import SplashScreen from "../screens/SplashScreen";
 
 export default function Navigation({
   colorScheme,
@@ -48,12 +59,48 @@ export default function Navigation({
 
 const Stack: any = createStackNavigator();
 
+function AuthRoot() {
+  return (
+    <Stack.Navigator initialRouteName="LoginScreen">
+      <Stack.Screen
+        name="LoginScreen"
+        component={LoginScreen}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
+  );
+}
+
 function RootNavigator() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName="SplashScreen">
       <Stack.Screen
         name="Root"
         component={BottomTabNavigator}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="AuthRoot"
+        component={AuthRoot}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="SplashScreen"
+        component={SplashScreen}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+const BottomTab: any = createBottomTabNavigator();
+
+function HomeStack() {
+  return (
+    <Stack.Navigator initialRouteName="HomeScreen">
+      <Stack.Screen
+        name="HomeScreen"
+        component={HomeScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen
@@ -61,16 +108,13 @@ function RootNavigator() {
         component={MobileCategoryScreen}
         options={{ headerShown: false }}
       />
+
       <Stack.Screen
         name="PowerSportScreen"
         component={PowerSportScreen}
         options={{ headerShown: false }}
       />
-      <Stack.Screen
-        name="HomeCategoryScreen"
-        component={HomeCategoryScreen}
-        options={{ headerShown: false }}
-      />
+
       <Stack.Screen
         name="BrandDetailsScreen"
         component={BrandDetailsScreen}
@@ -81,26 +125,31 @@ function RootNavigator() {
         component={MarineScreen}
         options={{ headerShown: false }}
       />
+      <Stack.Screen
+        name="HomeCategoryScreen"
+        component={HomeCategoryScreen}
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
   );
 }
 
-const BottomTab: any = createBottomTabNavigator();
-
 function BottomTabNavigator() {
-  const colorScheme = useColorScheme();
+  const [userData, setUserData] = useAtom(user);
 
+  const colorScheme = useColorScheme();
+  const navigation: any = useNavigation();
   return (
     <BottomTab.Navigator
-      initialRouteName="HomeScreen"
+      initialRouteName="HomeStack"
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: Colors[colorScheme].tint,
       }}
     >
       <BottomTab.Screen
-        name="HomeScreen"
-        component={HomeScreen}
+        name="HomeStack"
+        component={HomeStack}
         options={{
           // title: "Tab Two",
           tabBarLabel: ({ focused }: any) => {
@@ -136,18 +185,35 @@ function BottomTabNavigator() {
         name="ShopScreen"
         component={ShopScreen}
         options={{
-          // title: "Tab Two",
-          tabBarLabel: ({ focused }: any) => {
+          tabBarButton: (props: any) => {
             return (
-              <View>
-                <Text style={{ color: focused ? "blue" : "#000" }}>Shop</Text>
-              </View>
+              <TouchableOpacity
+                onPress={() => {
+                  if (userData === false) {
+                    navigation.navigate("AuthRoot");
+                  } else if (userData === true) {
+                    navigation.navigate("ShopScreen");
+                  }
+                }}
+              >
+                <Ionicons
+                  name="apps-outline"
+                  size={25}
+                  color={props?.accessibilityState?.selected ? "blue" : "#000"}
+                  style={{ alignSelf: "center" }}
+                />
+                <Text
+                  style={{
+                    color: props?.accessibilityState?.selected
+                      ? "blue"
+                      : "#000",
+                  }}
+                >
+                  Shop
+                </Text>
+              </TouchableOpacity>
             );
           },
-
-          tabBarIcon: ({ color }: any) => (
-            <Ionicons name="apps-outline" size={25} />
-          ),
         }}
       />
       <BottomTab.Screen
