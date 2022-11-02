@@ -2,11 +2,22 @@ import { View, Text, SafeAreaView } from "react-native";
 import React, { useEffect } from "react";
 import { useAtom } from "jotai";
 import { user } from "../../stores/user";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const SplashScreen = ({ navigation }: any) => {
   const [userData, setUserData] = useAtom(user);
+  const getUser = async () => {
+    const data: any = await AsyncStorage.getItem("logged_in");
 
+    console.log(data, "data");
+    const parseData = JSON.parse(data);
+
+    if (parseData !== null) setUserData(parseData?.isLoggedIn);
+  };
+
+  console.log(userData, "dd");
   useEffect(() => {
+    getUser();
     setTimeout(() => {
       navigation.navigate("Root");
     }, 1200);
