@@ -6,16 +6,14 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const SplashScreen = ({ navigation }: any) => {
   const [userData, setUserData] = useAtom(user);
-  const getUser = async () => {
-    const data: any = await AsyncStorage.getItem("logged_in");
 
-    console.log(data, "data");
+  const getUser = async () => {
+    const data: any = await AsyncStorage.getItem("loggedIn");
     const parseData = JSON.parse(data);
 
-    if (parseData !== null) setUserData(parseData?.isLoggedIn);
+    if (parseData !== null) setUserData(parseData?.isLogged);
   };
 
-  console.log(userData, "dd");
   useEffect(() => {
     getUser();
     setTimeout(() => {

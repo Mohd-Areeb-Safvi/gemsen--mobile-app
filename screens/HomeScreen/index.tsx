@@ -16,17 +16,15 @@ import FooterSection from "../../components/FooterSection";
 import Header from "../../components/Header";
 import { useAtom } from "jotai";
 import { user } from "../../stores/user";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const { width } = Dimensions.get("window");
 const HomeScreen = () => {
   const [data, setData] = useAtom(user);
 
+  console.log(data, "user");
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <TouchableOpacity
-        onPress={() => {
-          setData(true);
-        }}
-      >
+      <TouchableOpacity onPress={() => {}}>
         <Text>Login</Text>
       </TouchableOpacity>
       <ScrollView showsVerticalScrollIndicator={false}>

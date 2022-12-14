@@ -5,7 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import theme from "../../../theme";
 
 import axios from "axios";
@@ -17,34 +17,48 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const LoginScreen = ({ navigation }: any) => {
   const [data, setData] = useAtom(user);
 
+  const emailAddress = "areeb@gmail.com";
+  const pass = "123456";
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const login = async () => {
-    const formData = new FormData();
-
-    formData.append("form_key", "qH6JPq2WgcDw7PRu");
-    formData.append("login[username]", "kgill@gemsen.com");
-    formData.append("login[password]", "Password2022222");
-    axios
-      .post("https://shop.bioworldcanada.com/customer/account/loginPost/", {
-        formData,
-      })
-      .then((res) => {
-        console.log(res, "res");
-        // setData(true);
-        // AsyncStorage.setItem("logged_in", JSON.stringify({ isLoggedIn: true }));
-        // navigation.navigate("Root");
-      })
-      .catch((err) => {
-        console.log(err, "err");
-      });
+    if (email !== emailAddress || password !== pass) {
+      setError("User Not Exist");
+    } else if (email === emailAddress && password === pass) {
+      setError("User Exist");
+      await AsyncStorage.setItem(
+        "loggedIn",
+        JSON.stringify({ isLogged: true })
+      );
+      navigation.navigate("HomeScreen");
+    }
   };
 
-  const currentUser = async () => {
-    const data = await axios.get("https://shop.gemsen.com/customer/account/");
-    console.log(data, "data");
+  const a = async () => {
+    return 2;
   };
+  const data1 = async () => {
+    console.log(1, "1");
+
+    const d = await a();
+    console.log(d);
+
+    // a().then((res) => {
+    //   console.log(res, "2");
+    // });
+
+    console.log(3, "3");
+  };
+
+  useEffect(() => {
+    data1();
+    return () => {};
+  }, []);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
       <Text
         style={{
           fontFamily: theme.font.fontRobotoBlack,
@@ -53,10 +67,12 @@ const LoginScreen = ({ navigation }: any) => {
           marginVertical: 20,
         }}
       >
-        LoginScreen
+        LoginScreen {password}
       </Text>
-
+      {error ? <Text>{error}</Text> : <></>}
       <TextInput
+        value={email}
+        autoCapitalize={"none"}
         placeholder="Email"
         style={{
           width: "90%",
@@ -67,8 +83,12 @@ const LoginScreen = ({ navigation }: any) => {
           alignSelf: "center",
           paddingHorizontal: 10,
         }}
+        onChangeText={(e) => {
+          setEmail(e);
+        }}
       />
       <TextInput
+        value={password}
         placeholder="Password"
         style={{
           width: "90%",
@@ -78,6 +98,9 @@ const LoginScreen = ({ navigation }: any) => {
           marginVertical: 10,
           alignSelf: "center",
           paddingHorizontal: 10,
+        }}
+        onChangeText={(e) => {
+          setPassword(e);
         }}
       />
       <TouchableOpacity

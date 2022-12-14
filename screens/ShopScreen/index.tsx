@@ -6,9 +6,10 @@ const ShopScreen = () => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Text>ShopScreen</Text>
+
       <TouchableOpacity
         onPress={() => {
-          AsyncStorage.removeItem("logged_in");
+          AsyncStorage.removeItem("loggedIn");
         }}
       >
         <Text>Logout</Text>
