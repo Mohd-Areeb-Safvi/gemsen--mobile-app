@@ -19,43 +19,51 @@ const LoginScreen = ({ navigation }: any) => {
 
   const emailAddress = "areeb@gmail.com";
   const pass = "123456";
+  const name1 = "Areeb";
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
   const [error, setError] = useState("");
   const login = async () => {
-    if (email !== emailAddress || password !== pass) {
+    if (email !== emailAddress || password !== pass || name1 !== name) {
       setError("User Not Exist");
-    } else if (email === emailAddress && password === pass) {
+    } else if (email === emailAddress && password === pass && name1 === name) {
       setError("User Exist");
       await AsyncStorage.setItem(
         "loggedIn",
-        JSON.stringify({ isLogged: true })
+        JSON.stringify({ isLogged: true, email, password, name })
       );
+      setData({
+        email,
+        name,
+        password,
+        isLogged: true,
+      });
       navigation.navigate("HomeScreen");
     }
   };
 
-  const a = async () => {
-    return 2;
-  };
-  const data1 = async () => {
-    console.log(1, "1");
+  // const a = async () => {
+  //   return 2;
+  // };
+  // const data1 = async () => {
+  //   console.log(1, "1");
 
-    const d = await a();
-    console.log(d);
+  //   const d = await a();
+  //   console.log(d);
 
-    // a().then((res) => {
-    //   console.log(res, "2");
-    // });
+  //   // a().then((res) => {
+  //   //   console.log(res, "2");
+  //   // });
 
-    console.log(3, "3");
-  };
+  //   console.log(3, "3");
+  // };
 
-  useEffect(() => {
-    data1();
-    return () => {};
-  }, []);
+  // useEffect(() => {
+  //   data1();
+  //   return () => {};
+  // }, []);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -67,9 +75,26 @@ const LoginScreen = ({ navigation }: any) => {
           marginVertical: 20,
         }}
       >
-        LoginScreen {password}
+        LoginScreen
       </Text>
       {error ? <Text>{error}</Text> : <></>}
+      <TextInput
+        value={name}
+        autoCapitalize={"none"}
+        placeholder="Name"
+        style={{
+          width: "90%",
+          paddingVertical: 10,
+          borderWidth: 1,
+          borderRadius: 5,
+          marginVertical: 10,
+          alignSelf: "center",
+          paddingHorizontal: 10,
+        }}
+        onChangeText={(e) => {
+          setName(e);
+        }}
+      />
       <TextInput
         value={email}
         autoCapitalize={"none"}
@@ -87,6 +112,7 @@ const LoginScreen = ({ navigation }: any) => {
           setEmail(e);
         }}
       />
+
       <TextInput
         value={password}
         placeholder="Password"

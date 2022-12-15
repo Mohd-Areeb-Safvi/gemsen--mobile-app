@@ -41,6 +41,7 @@ import { useAtom } from "jotai";
 import { user } from "../stores/user";
 import LoginScreen from "../screens/AuthScreens/LoginScreen";
 import SplashScreen from "../screens/SplashScreen";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 
 export default function Navigation({
   colorScheme,
@@ -70,15 +71,25 @@ function AuthRoot() {
     </Stack.Navigator>
   );
 }
+const Tab = createMaterialTopTabNavigator();
 
+function MyTabs() {
+  return (
+    <Tab.Navigator initialRouteName="HomeScreen">
+      <Tab.Screen name="HomeScreen" component={HomeScreen} />
+    </Tab.Navigator>
+  );
+}
 function RootNavigator() {
+  const [data, setData] = useAtom(user);
   return (
     <Stack.Navigator initialRouteName="SplashScreen">
       <Stack.Screen
         name="Root"
-        component={BottomTabNavigator}
+        component={data.email ? MyTabs : BottomTabNavigator}
         options={{ headerShown: false }}
       />
+
       <Stack.Screen
         name="AuthRoot"
         component={AuthRoot}
@@ -151,7 +162,6 @@ function BottomTabNavigator() {
         name="HomeStack"
         component={HomeStack}
         options={{
-          // title: "Tab Two",
           tabBarLabel: ({ focused }: any) => {
             return (
               <View>

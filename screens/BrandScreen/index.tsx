@@ -7,18 +7,17 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const BrandScreen = () => {
   const [data, setData] = useAtom(user);
 
-  console.log(data, "data");
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <TouchableOpacity
         onPress={async () => {
-          if (data === true) {
+          if (data.isLogged === true) {
             await AsyncStorage.clear();
-            setData(false);
+            setData({});
           }
         }}
       >
-        <Text>{data === true ? "Logout" : "Login"}</Text>
+        <Text>{data.isLogged === true ? "Logout" : "Login"}</Text>
       </TouchableOpacity>
       <Text>BrandScreen</Text>
     </SafeAreaView>
