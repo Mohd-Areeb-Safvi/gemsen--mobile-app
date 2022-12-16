@@ -18,6 +18,15 @@ export default function useCachedResources() {
           "space-mono": require("../assets/fonts/SpaceMono-Regular.ttf"),
           "roboto-black": require("../assets/fonts/Roboto-Black.ttf"),
           "roboto-bold": require("../assets/fonts/Roboto-Bold.ttf"),
+          "Poppins-Medium": require("../assets/fonts/Poppins-Medium.ttf"),
+          "Poppins-Light": require("../assets/fonts/Poppins-Light.ttf"),
+          "Poppins-SemiBold": require("../assets/fonts/Poppins-SemiBold.ttf"),
+          "Poppins-Regular": require("../assets/fonts/Poppins-Regular.ttf"),
+          "Poppins-ExtraBold": require("../assets/fonts/Poppins-ExtraBold.ttf"),
+          "Poppins-Bold": require("../assets/fonts/Poppins-Bold.ttf"),
+          "PlayfairDisplay-Black": require("../assets/fonts/PlayfairDisplay-Black.ttf"),
+          "PlayfairDisplay-Regular": require("../assets/fonts/PlayfairDisplay-Regular.ttf"),
+          "Cinzel-Black": require("../assets/fonts/Cinzel-Black.ttf"),
         });
       } catch (e) {
         // We might want to provide this error information to an error reporting service

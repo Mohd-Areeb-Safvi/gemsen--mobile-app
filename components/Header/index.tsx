@@ -2,7 +2,7 @@ import { View, Text, Image } from "react-native";
 import React from "react";
 import theme from "../../theme";
 
-const Header = ({ value }: any) => {
+const Header = ({ value, center }: any) => {
   return (
     <View
       style={{
@@ -18,7 +18,7 @@ const Header = ({ value }: any) => {
         source={{
           uri: "https://gemsen.com/media/logo/stores/1/cropped-logo_1_.png",
         }}
-        style={{ width: 50, height: 50, marginLeft: 20 }}
+        style={{ width: 50, height: 50, marginLeft: 20, resizeMode: "contain" }}
       />
       <Text
         style={{

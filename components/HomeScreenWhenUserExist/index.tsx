@@ -3,6 +3,11 @@ import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { user } from "../../stores/user";
 import { useAtom } from "jotai";
+import { ScrollView } from "react-native-gesture-handler";
+import theme from "../../theme";
+import Header from "../Header";
+import HeaderAfterLogin from "../HeaderAfterLogin";
+import ScrollImages from "../../screens/HomeScreen/ScrollImages";
 
 const HomeScreenWhenUserExist = () => {
   const [data, setData] = useAtom(user);
@@ -27,23 +32,79 @@ const HomeScreenWhenUserExist = () => {
       id: 5,
       name: "Home",
     },
+    {
+      id: 6,
+      name: "What's new",
+    },
+    {
+      id: 7,
+      name: "Sale",
+    },
   ];
   const navigation: any = useNavigation();
   return (
     <View>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate("MarineScreen");
+      <HeaderAfterLogin value={""} />
+      <TouchableOpacity onPress={() => {}}>
+        <Text
+          style={{
+            fontFamily: theme.font.fontMedium,
+            color: "#000",
+            paddingHorizontal: 10,
+            paddingVertical: 6,
+            fontSize: 19,
+            marginVertical: 10,
+          }}
+        >
+          Good Morning ,{" "}
+          <Text
+            style={{
+              color: theme.colors.primary,
+            }}
+          >
+            {data.name}
+          </Text>
+        </Text>
+      </TouchableOpacity>
+      <ScrollImages />
+
+      <Text
+        style={{
+          fontFamily: theme.font.fontMedium,
+          color: "#000",
+          paddingHorizontal: 10,
+          fontSize: 19,
+          marginVertical: 10,
         }}
       >
-        <Text>Good Morning {data.name}</Text>
-      </TouchableOpacity>
-
-      <View>
+        Categories :
+      </Text>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {category?.map((item) => {
-          return <Text key={item?.id}>{item.name}</Text>;
+          return (
+            <View
+              key={item?.id}
+              style={{
+                marginRight: 20,
+                borderRadius: 10,
+                backgroundColor: theme.colors.primary,
+                marginLeft: 10,
+              }}
+            >
+              <Text
+                style={{
+                  fontFamily: theme.font.fontMedium,
+                  color: "#fff",
+                  paddingHorizontal: 10,
+                  paddingVertical: 10,
+                }}
+              >
+                {item.name}
+              </Text>
+            </View>
+          );
         })}
-      </View>
+      </ScrollView>
     </View>
   );
 };

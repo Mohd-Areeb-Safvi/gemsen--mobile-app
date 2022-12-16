@@ -16,6 +16,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import {
   ColorSchemeName,
   Pressable,
+  SafeAreaView,
   Text,
   TouchableOpacity,
   View,
@@ -42,6 +43,8 @@ import { user } from "../stores/user";
 import LoginScreen from "../screens/AuthScreens/LoginScreen";
 import SplashScreen from "../screens/SplashScreen";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import SearchScreen from "../screens/SearchScreen";
+import AddToCart from "../screens/AddToCart";
 
 export default function Navigation({
   colorScheme,
@@ -71,22 +74,101 @@ function AuthRoot() {
     </Stack.Navigator>
   );
 }
-const Tab = createMaterialTopTabNavigator();
+function BottomTabNavigatorAfterLogin() {
+  const [userData, setUserData] = useAtom(user);
 
-function MyTabs() {
+  const colorScheme = useColorScheme();
+  const navigation: any = useNavigation();
   return (
-    <Tab.Navigator initialRouteName="HomeScreen">
-      <Tab.Screen name="HomeScreen" component={HomeScreen} />
-    </Tab.Navigator>
+    <BottomTab.Navigator
+      initialRouteName="HomeStack"
+      screenOptions={{
+        headerShown: false,
+        tabBarActiveTintColor: Colors[colorScheme].tint,
+      }}
+    >
+      <BottomTab.Screen
+        name="HomeStack"
+        component={HomeStack}
+        options={{
+          tabBarLabel: ({ focused }: any) => {
+            return (
+              <View>
+                <Text style={{ color: focused ? "blue" : "#000" }}>Home</Text>
+              </View>
+            );
+          },
+
+          tabBarIcon: ({ color }: any) => <Ionicons name="home" size={25} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="SearchScreen"
+        component={SearchScreen}
+        options={{
+          tabBarLabel: ({ focused }: any) => {
+            return (
+              <View>
+                <Text style={{ color: focused ? "blue" : "#000" }}>Search</Text>
+              </View>
+            );
+          },
+
+          tabBarIcon: ({ color }: any) => (
+            <Ionicons name="search-sharp" size={25} />
+          ),
+        }}
+      />
+      <BottomTab.Screen
+        name="AddToCart"
+        component={AddToCart}
+        options={{
+          tabBarLabel: ({ focused }: any) => {
+            return (
+              <View>
+                <Text style={{ color: focused ? "blue" : "#000" }}>Cart</Text>
+              </View>
+            );
+          },
+
+          tabBarIcon: ({ color }: any) => (
+            <Ionicons name="cart-outline" size={25} />
+          ),
+        }}
+      />
+      <BottomTab.Screen
+        name="AccountScreen"
+        component={AccountScreen}
+        options={{
+          // title: "Tab Two",
+          tabBarLabel: ({ focused }: any) => {
+            return (
+              <View>
+                <Text style={{ color: focused ? "blue" : "#000" }}>
+                  Account
+                </Text>
+              </View>
+            );
+          },
+
+          tabBarIcon: ({ color }: any) => (
+            <Ionicons name="person-circle" size={25} />
+          ),
+        }}
+      />
+    </BottomTab.Navigator>
   );
 }
+
 function RootNavigator() {
   const [data, setData] = useAtom(user);
   return (
     <Stack.Navigator initialRouteName="SplashScreen">
       <Stack.Screen
         name="Root"
-        component={data.email ? MyTabs : BottomTabNavigator}
+        component={
+          data.email ? BottomTabNavigatorAfterLogin : BottomTabNavigator
+        }
         options={{ headerShown: false }}
       />
 

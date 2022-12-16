@@ -1,6 +1,6 @@
 const theme = {
   colors: {
-    primary: "#F68B1F",
+    primary: "#077fb4",
     secondary: "#0C0D34",
     danger: "#eb090d",
     text: "rgba(12,13,52,0.7)",
@@ -21,6 +21,12 @@ const theme = {
     fontSpaceMono: "space-mono",
     fontRobotoBlack: "roboto-black",
     fontRobotoBold: "roboto-bold",
+    fontExtraBold: "Poppins-ExtraBold",
+    fontBold: "Poppins-Bold",
+    fontSemiBold: "Poppins-SemiBold",
+    fontMedium: "Poppins-Medium",
+    fontRegular: "Poppins-Regular",
+    fontLight: "Poppins-Light",
   },
 };
 
