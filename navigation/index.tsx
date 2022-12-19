@@ -42,9 +42,9 @@ import { useAtom } from "jotai";
 import { user } from "../stores/user";
 import LoginScreen from "../screens/AuthScreens/LoginScreen";
 import SplashScreen from "../screens/SplashScreen";
-import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import SearchScreen from "../screens/SearchScreen";
 import AddToCart from "../screens/AddToCart";
+import SubCategoryScreen from "../screens/SubCategoryScreen";
 
 export default function Navigation({
   colorScheme,
@@ -221,6 +221,11 @@ function HomeStack() {
       <Stack.Screen
         name="HomeCategoryScreen"
         component={HomeCategoryScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="SubCategoryScreen"
+        component={SubCategoryScreen}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

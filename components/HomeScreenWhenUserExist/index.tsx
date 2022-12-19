@@ -82,7 +82,12 @@ const HomeScreenWhenUserExist = () => {
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {category?.map((item) => {
           return (
-            <View
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("SubCategoryScreen", {
+                  categoryName: item.name,
+                });
+              }}
               key={item?.id}
               style={{
                 marginRight: 20,
@@ -101,7 +106,7 @@ const HomeScreenWhenUserExist = () => {
               >
                 {item.name}
               </Text>
-            </View>
+            </TouchableOpacity>
           );
         })}
       </ScrollView>
