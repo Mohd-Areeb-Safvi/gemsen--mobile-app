@@ -45,6 +45,7 @@ import SplashScreen from "../screens/SplashScreen";
 import SearchScreen from "../screens/SearchScreen";
 import AddToCart from "../screens/AddToCart";
 import SubCategoryScreen from "../screens/SubCategoryScreen";
+import NestedSubCategoryScreen from "../screens/NestedSubCategoryScreen";
 
 export default function Navigation({
   colorScheme,
@@ -226,6 +227,11 @@ function HomeStack() {
       <Stack.Screen
         name="SubCategoryScreen"
         component={SubCategoryScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="NestedSubCategoryScreen"
+        component={NestedSubCategoryScreen}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

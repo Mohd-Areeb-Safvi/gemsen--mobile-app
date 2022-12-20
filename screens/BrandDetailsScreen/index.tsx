@@ -14,7 +14,6 @@ import theme from "../../theme";
 const BrandDetailsScreen = ({ route }: any) => {
   const { data } = route.params;
 
-  console.log(data);
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Header value={data.txt} />

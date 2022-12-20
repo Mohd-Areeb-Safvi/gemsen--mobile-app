@@ -8,6 +8,7 @@ import theme from "../../theme";
 import Header from "../Header";
 import HeaderAfterLogin from "../HeaderAfterLogin";
 import ScrollImages from "../../screens/HomeScreen/ScrollImages";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const HomeScreenWhenUserExist = () => {
   const [data, setData] = useAtom(user);
@@ -15,10 +16,105 @@ const HomeScreenWhenUserExist = () => {
     {
       id: 1,
       name: "Shop By Categories",
+
+      category: [
+        {
+          mainCateogry: "Home",
+          subCategories: [
+            {
+              id: 1,
+              category: "Audio Components",
+              subCategories: ["Dac", "Cd player"],
+            },
+            {
+              id: 2,
+              category: "HomeSpeaker",
+              subCategories: ["In Wall Speaker", "Cable"],
+            },
+            {
+              id: 3,
+              category: "Woofer",
+              subCategories: ["In Wall Speaker", "Cable"],
+            },
+          ],
+        },
+        {
+          mainCateogry: "Marine",
+        },
+        {
+          mainCateogry: "Mobile",
+        },
+        {
+          mainCateogry: "PowerSport",
+        },
+      ],
     },
+
     {
       id: 2,
       name: "Mobile",
+      category: [
+        {
+          mainCateogry: "Audio Control",
+          subCategories: [
+            {
+              id: 1,
+              category: "Amplifier",
+              subCategories: ["Mono block"],
+            },
+            {
+              id: 2,
+              category: "Enclosure",
+              subCategories: ["Mono Block"],
+            },
+            {
+              id: 3,
+              category: "Kicker",
+              subCategories: ["Mono Block"],
+            },
+          ],
+        },
+        {
+          mainCateogry: "Automate",
+          subCategories: [
+            {
+              id: 1,
+              category: "Amplifier",
+              subCategories: ["Mono block"],
+            },
+            {
+              id: 2,
+              category: "Enclosure",
+              subCategories: ["Mono Block"],
+            },
+            {
+              id: 3,
+              category: "Kicker",
+              subCategories: ["Mono Block"],
+            },
+          ],
+        },
+        {
+          mainCateogry: "Boss",
+          subCategories: [
+            {
+              id: 1,
+              category: "Amplifier",
+              subCategories: ["Mono block"],
+            },
+            {
+              id: 2,
+              category: "Enclosure",
+              subCategories: ["Mono Block"],
+            },
+            {
+              id: 3,
+              category: "Kicker",
+              subCategories: ["Mono Block"],
+            },
+          ],
+        },
+      ],
     },
     {
       id: 3,
@@ -45,6 +141,14 @@ const HomeScreenWhenUserExist = () => {
   return (
     <View>
       <HeaderAfterLogin value={""} />
+      <TouchableOpacity
+        onPress={async () => {
+          await AsyncStorage.clear();
+          setData({});
+        }}
+      >
+        <Text>Logout</Text>
+      </TouchableOpacity>
       <TouchableOpacity onPress={() => {}}>
         <Text
           style={{
@@ -85,7 +189,7 @@ const HomeScreenWhenUserExist = () => {
             <TouchableOpacity
               onPress={() => {
                 navigation.navigate("SubCategoryScreen", {
-                  categoryName: item.name,
+                  data: item,
                 });
               }}
               key={item?.id}

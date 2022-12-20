@@ -1,0 +1,7 @@
+const data: any = "Strinf";
+
+data1.map((item: any) => {});
+
+const [data3, setData3] = useState<any>();
+
+const data4 = ({ data }: any) => {};
