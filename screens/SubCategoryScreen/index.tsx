@@ -1,19 +1,7 @@
-import React, { Component, useState } from "react";
-import {
-  Switch,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  SafeAreaView,
-} from "react-native";
-import Constants from "expo-constants";
-import * as Animatable from "react-native-animatable";
-import Collapsible from "react-native-collapsible";
-import Accordion from "react-native-collapsible/Accordion";
+import React, { useState } from "react";
+import { ScrollView, StyleSheet, SafeAreaView } from "react-native";
+
 import ShopByCategoryDetails from "../../components/ShopByCategoryDetails";
-import MobileCategories from "../../components/MobileCategories";
 
 const SubCategoryScreen = ({ route }: any) => {
   const { data } = route.params;
@@ -35,7 +23,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#F5FCFF",
-    // paddingTop: Constants.statusBarHeight,
   },
   title: {
     textAlign: "center",

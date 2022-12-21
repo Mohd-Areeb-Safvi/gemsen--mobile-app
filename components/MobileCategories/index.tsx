@@ -7,9 +7,7 @@ import {
   View,
   TouchableOpacity,
 } from "react-native";
-import Constants from "expo-constants";
 import * as Animatable from "react-native-animatable";
-import Collapsible from "react-native-collapsible";
 import Accordion from "react-native-collapsible/Accordion";
 
 const BACON_IPSUM =

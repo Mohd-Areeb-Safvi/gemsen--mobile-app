@@ -24,9 +24,6 @@ export default function useCachedResources() {
           "Poppins-Regular": require("../assets/fonts/Poppins-Regular.ttf"),
           "Poppins-ExtraBold": require("../assets/fonts/Poppins-ExtraBold.ttf"),
           "Poppins-Bold": require("../assets/fonts/Poppins-Bold.ttf"),
-          "PlayfairDisplay-Black": require("../assets/fonts/PlayfairDisplay-Black.ttf"),
-          "PlayfairDisplay-Regular": require("../assets/fonts/PlayfairDisplay-Regular.ttf"),
-          "Cinzel-Black": require("../assets/fonts/Cinzel-Black.ttf"),
         });
       } catch (e) {
         // We might want to provide this error information to an error reporting service

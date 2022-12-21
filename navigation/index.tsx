@@ -22,7 +22,6 @@ import {
   View,
 } from "react-native";
 
-import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
 import ModalScreen from "../screens/ModalScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
@@ -85,7 +84,6 @@ function BottomTabNavigatorAfterLogin() {
       initialRouteName="HomeStack"
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: Colors[colorScheme].tint,
       }}
     >
       <BottomTab.Screen
@@ -248,7 +246,6 @@ function BottomTabNavigator() {
       initialRouteName="HomeStack"
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: Colors[colorScheme].tint,
       }}
     >
       <BottomTab.Screen
