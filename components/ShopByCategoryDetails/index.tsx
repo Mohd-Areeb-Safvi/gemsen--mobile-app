@@ -11,12 +11,14 @@ import * as Animatable from "react-native-animatable";
 import Accordion from "react-native-collapsible/Accordion";
 import theme from "../../theme";
 import { useNavigation } from "@react-navigation/native";
+import { Ionicons } from "@expo/vector-icons";
 
-const SubCategoryScreen = ({ route, data }: any) => {
+const SubCategoryScreen = ({ data }: any) => {
   const navigation: any = useNavigation();
   const [activeSections, setActiveSections] = useState<any>([]);
   const [collapsed, setCollapsed] = useState(true);
   const [multipleSelect, setMultipleSelect] = useState(false);
+
   const toggleExpanded = () => {
     setCollapsed(!collapsed);
   };
@@ -37,6 +39,7 @@ const SubCategoryScreen = ({ route, data }: any) => {
   };
 
   const renderContent = (section: any, _: any, isActive: any) => {
+    console.group(section);
     return (
       <Animatable.View
         duration={400}
@@ -77,7 +80,28 @@ const SubCategoryScreen = ({ route, data }: any) => {
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={{ paddingTop: 30 }}>
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          marginHorizontal: 20,
+          justifyContent: "space-between",
+          marginVertical: 10,
+        }}
+      >
+        <TouchableOpacity
+          onPress={() => {
+            navigation.goBack();
+          }}
+        >
+          <Ionicons name="chevron-back-outline" size={27} />
+        </TouchableOpacity>
+        <Text style={{ fontFamily: theme.font.fontMedium, fontSize: 20 }}>
+          {data.name}
+        </Text>
+        <Ionicons name="chevron-back-outline" size={27} color={"#fff"} />
+      </View>
+      <ScrollView contentContainerStyle={{ paddingTop: 2 }}>
         <Accordion
           align="bottom"
           activeSections={activeSections}
