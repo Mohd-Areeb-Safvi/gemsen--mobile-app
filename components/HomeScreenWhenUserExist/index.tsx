@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
-import { useNavigation } from "@react-navigation/native";
+import { DrawerActions, useNavigation } from "@react-navigation/native";
 import { user } from "../../stores/user";
 import { useAtom } from "jotai";
 import { ScrollView } from "react-native-gesture-handler";
@@ -230,15 +230,8 @@ const HomeScreenWhenUserExist = () => {
   return (
     <View style={{ flex: 1 }}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <HeaderAfterLogin value={""} />
-        <TouchableOpacity
-          onPress={async () => {
-            await AsyncStorage.clear();
-            setData({});
-          }}
-        >
-          <Text>Logout</Text>
-        </TouchableOpacity>
+        <HeaderAfterLogin value={""} icon="menu" />
+
         <TouchableOpacity onPress={() => {}}>
           <Text
             style={{
@@ -262,7 +255,7 @@ const HomeScreenWhenUserExist = () => {
         </TouchableOpacity>
         <ScrollImages />
 
-        <Text
+        {/* <Text
           style={{
             fontFamily: theme.font.fontMedium,
             color: "#000",
@@ -305,7 +298,7 @@ const HomeScreenWhenUserExist = () => {
               );
             })}
           </ScrollView>
-        </View>
+        </View> */}
         {/* Images*/}
         <FooterSection />
       </ScrollView>

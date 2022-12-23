@@ -46,6 +46,8 @@ import AddToCart from "../screens/AddToCart";
 import SubCategoryScreen from "../screens/SubCategoryScreen";
 import NestedSubCategoryScreen from "../screens/NestedSubCategoryScreen";
 import DisplayProductsScreen from "../screens/DisplayProductsScreen";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import CustomDrawer from "./CustomDrawer";
 
 export default function Navigation({
   colorScheme,
@@ -75,88 +77,30 @@ function AuthRoot() {
     </Stack.Navigator>
   );
 }
-function BottomTabNavigatorAfterLogin() {
+function DrawerScreen() {
   const [userData, setUserData] = useAtom(user);
-
+  const Drawer = createDrawerNavigator();
   const colorScheme = useColorScheme();
   const navigation: any = useNavigation();
+
   return (
-    <BottomTab.Navigator
+    <Drawer.Navigator
       initialRouteName="HomeStack"
       screenOptions={{
         headerShown: false,
+        drawerStyle: {
+          width: "100%",
+        },
+        drawerType: "back",
+        drawerStatusBarAnimation: "slide",
+        // overlayColor: "rgba(0,0,0,1)",
       }}
+      drawerContent={CustomDrawer}
     >
-      <BottomTab.Screen
-        name="HomeStack"
-        component={HomeStack}
-        options={{
-          tabBarLabel: ({ focused }: any) => {
-            return (
-              <View>
-                <Text style={{ color: focused ? "blue" : "#000" }}>Home</Text>
-              </View>
-            );
-          },
-
-          tabBarIcon: ({ color }: any) => <Ionicons name="home" size={25} />,
-        }}
-      />
-      <BottomTab.Screen
-        name="SearchScreen"
-        component={SearchScreen}
-        options={{
-          tabBarLabel: ({ focused }: any) => {
-            return (
-              <View>
-                <Text style={{ color: focused ? "blue" : "#000" }}>Search</Text>
-              </View>
-            );
-          },
-
-          tabBarIcon: ({ color }: any) => (
-            <Ionicons name="search-sharp" size={25} />
-          ),
-        }}
-      />
-      <BottomTab.Screen
-        name="AddToCart"
-        component={AddToCart}
-        options={{
-          tabBarLabel: ({ focused }: any) => {
-            return (
-              <View>
-                <Text style={{ color: focused ? "blue" : "#000" }}>Cart</Text>
-              </View>
-            );
-          },
-
-          tabBarIcon: ({ color }: any) => (
-            <Ionicons name="cart-outline" size={25} />
-          ),
-        }}
-      />
-      <BottomTab.Screen
-        name="AccountScreen"
-        component={AccountScreen}
-        options={{
-          // title: "Tab Two",
-          tabBarLabel: ({ focused }: any) => {
-            return (
-              <View>
-                <Text style={{ color: focused ? "blue" : "#000" }}>
-                  Account
-                </Text>
-              </View>
-            );
-          },
-
-          tabBarIcon: ({ color }: any) => (
-            <Ionicons name="person-circle" size={25} />
-          ),
-        }}
-      />
-    </BottomTab.Navigator>
+      <Drawer.Screen name="HomeStack" component={HomeStack} />
+      <Drawer.Screen name="SubCategoryScreen" component={SubCategoryScreen} />
+      <Drawer.Screen name="AccountScreen" component={AccountScreen} />
+    </Drawer.Navigator>
   );
 }
 
@@ -166,9 +110,7 @@ function RootNavigator() {
     <Stack.Navigator initialRouteName="SplashScreen">
       <Stack.Screen
         name="Root"
-        component={
-          data.email ? BottomTabNavigatorAfterLogin : BottomTabNavigator
-        }
+        component={data.email ? DrawerScreen : BottomTabNavigator}
         options={{ headerShown: false }}
       />
 
