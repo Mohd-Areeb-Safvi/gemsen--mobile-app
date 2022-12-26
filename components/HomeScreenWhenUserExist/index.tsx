@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { DrawerActions, useNavigation } from "@react-navigation/native";
 import { user } from "../../stores/user";
@@ -300,6 +300,22 @@ const HomeScreenWhenUserExist = () => {
           </ScrollView>
         </View> */}
         {/* Images*/}
+        <View style={{flexDirection:"row",marginTop:10,paddingLeft:0,marginRight:20,marginLeft:20}}>
+        
+        <View style={{flex:1/3,justifyContent:"center"}}><Image source={{uri: 'https://shop.gemsen.com/media/400x423navtv_1.jpg'}}
+       style={{width: 120, height: 150,resizeMode:"contain"}} /></View>
+      <View style={{flex:1/3,marginLeft:15,justifyContent:"center"}}><Image source={{uri: 'https://shop.gemsen.com/media/wysiwyg/400x423_Clarion.jpg'}}
+       style={{width: 120, height: 150,resizeMode:"contain"}} /></View>
+       <View style={{flex:1/3,marginLeft:15,justifyContent:"center",paddingRight:15}}><Image source={{uri: 'https://shop.gemsen.com/media/wysiwyg/400x423carplay.jpg'}}
+       style={{width: 120, height: 150,resizeMode:"contain"}} /></View>
+       
+        </View>
+        <View style={{flex:1/2,paddingLeft:20,justifyContent:"center"}}>
+        <View style={{paddingTop:30,flex:1/2}}>
+          <Image source={{uri: 'https://shop.gemsen.com/media/1240x254parasound_1.jpg'}}
+       style={{width: 355, height: 150,resizeMode:"contain"}} /></View>
+
+        </View>
         <FooterSection />
       </ScrollView>
     </View>
