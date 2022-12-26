@@ -17,7 +17,10 @@ export const category = [
                 products: [
                   {
                     id: 1,
-                    productImage: "",
+                    productImage: [
+                      "https://elasticsearch-pwa-m2.magento-demo.amasty.com/media/catalog/product/cache/3119fdc86065b8c295ab10a11e7294fc/v/d/vd01-ll_main_2.jpg?auto=webp&format=pjpg&width=640&height=800&fit=cover",
+                      "https://elasticsearch-pwa-m2.magento-demo.amasty.com/media/catalog/product/cache/3119fdc86065b8c295ab10a11e7294fc/v/d/vd01-ll_main_2.jpg?auto=webp&format=pjpg&width=640&height=800&fit=cover",
+                    ],
                     productName:
                       "2x200Watt Amp w/Integrated Class A Preamp. USB, HDMI, Coax, BT, Optical",
                     price: "$222",
@@ -26,7 +29,22 @@ export const category = [
                   },
                   {
                     id: 2,
-                    productImage: "",
+                    productImage: [
+                      "https://elasticsearch-pwa-m2.magento-demo.amasty.com/media/catalog/product/cache/3119fdc86065b8c295ab10a11e7294fc/v/d/vd01-ll_main_2.jpg?auto=webp&format=pjpg&width=640&height=800&fit=cover",
+                      "https://elasticsearch-pwa-m2.magento-demo.amasty.com/media/catalog/product/cache/3119fdc86065b8c295ab10a11e7294fc/v/d/vd01-ll_main_2.jpg?auto=webp&format=pjpg&width=640&height=800&fit=cover",
+                    ],
+                    productName:
+                      "2x200Watt Amp w/Integrated Class A Preamp. USB, HDMI, Coax, BT, Optical",
+                    price: "$222",
+                    status: "In Stock",
+                    sku: "KR-Digitalvanguard",
+                  },
+                  {
+                    id: 3,
+                    productImage: [
+                      "https://elasticsearch-pwa-m2.magento-demo.amasty.com/media/catalog/product/cache/3119fdc86065b8c295ab10a11e7294fc/v/d/vd01-ll_main_2.jpg?auto=webp&format=pjpg&width=640&height=800&fit=cover",
+                      "https://elasticsearch-pwa-m2.magento-demo.amasty.com/media/catalog/product/cache/3119fdc86065b8c295ab10a11e7294fc/v/d/vd01-ll_main_2.jpg?auto=webp&format=pjpg&width=640&height=800&fit=cover",
+                    ],
                     productName:
                       "2x200Watt Amp w/Integrated Class A Preamp. USB, HDMI, Coax, BT, Optical",
                     price: "$222",

@@ -48,6 +48,7 @@ import NestedSubCategoryScreen from "../screens/NestedSubCategoryScreen";
 import DisplayProductsScreen from "../screens/DisplayProductsScreen";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import CustomDrawer from "./CustomDrawer";
+import DisplayIndividualProductDetails from "../screens/DisplayIndividualProductDetails";
 
 export default function Navigation({
   colorScheme,
@@ -178,6 +179,11 @@ function HomeStack() {
       <Stack.Screen
         name="DisplayProductsScreen"
         component={DisplayProductsScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="DisplayIndividualProductDetails"
+        component={DisplayIndividualProductDetails}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

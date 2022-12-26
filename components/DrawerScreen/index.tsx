@@ -5,7 +5,7 @@ import { useAtom } from "jotai";
 import { user } from "../../stores/user";
 import { Ionicons } from "@expo/vector-icons";
 import theme from "../../theme";
-import { useNavigation } from "@react-navigation/native";
+import { DrawerActions, useNavigation } from "@react-navigation/native";
 import { category } from "../../data";
 
 const DrawerScreen = () => {
@@ -16,7 +16,10 @@ const DrawerScreen = () => {
   return (
     <View style={{ flex: 1 }}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View
+        <TouchableOpacity
+          onPress={() => {
+            navigation.dispatch(DrawerActions.closeDrawer());
+          }}
           style={{
             flexDirection: "row",
             alignItems: "center",
@@ -36,7 +39,7 @@ const DrawerScreen = () => {
           >
             Main menu
           </Text>
-        </View>
+        </TouchableOpacity>
         {category?.map((item) => {
           return (
             <TouchableOpacity
