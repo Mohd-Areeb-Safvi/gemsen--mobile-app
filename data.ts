@@ -26,6 +26,8 @@ export const category = [
                     price: "$222",
                     status: "In Stock",
                     sku: "KR-Digitalvanguard",
+                    description:
+                      "The Angelina Tank Dress is simple yet sophisticated. This dress can be thrown over a swimsuit for last minute lunch plans or belted for dinner on the patio. The high-low hemline gives it the perfect amount of swing.",
                   },
                   {
                     id: 2,
@@ -38,6 +40,8 @@ export const category = [
                     price: "$222",
                     status: "In Stock",
                     sku: "KR-Digitalvanguard",
+                    description:
+                      "The Angelina Tank Dress is simple yet sophisticated. This dress can be thrown over a swimsuit for last minute lunch plans or belted for dinner on the patio. The high-low hemline gives it the perfect amount of swing.",
                   },
                   {
                     id: 3,
@@ -50,6 +54,8 @@ export const category = [
                     price: "$222",
                     status: "In Stock",
                     sku: "KR-Digitalvanguard",
+                    description:
+                      "The Angelina Tank Dress is simple yet sophisticated. This dress can be thrown over a swimsuit for last minute lunch plans or belted for dinner on the patio. The high-low hemline gives it the perfect amount of swing.",
                   },
                 ],
               },
