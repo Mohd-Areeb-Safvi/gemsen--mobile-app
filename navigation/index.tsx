@@ -42,7 +42,6 @@ import { user } from "../stores/user";
 import LoginScreen from "../screens/AuthScreens/LoginScreen";
 import SplashScreen from "../screens/SplashScreen";
 import SearchScreen from "../screens/SearchScreen";
-import AddToCart from "../screens/AddToCart";
 import SubCategoryScreen from "../screens/SubCategoryScreen";
 import NestedSubCategoryScreen from "../screens/NestedSubCategoryScreen";
 import DisplayProductsScreen from "../screens/DisplayProductsScreen";

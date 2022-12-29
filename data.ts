@@ -23,7 +23,7 @@ export const category = [
                     ],
                     productName:
                       "2x200Watt Amp w/Integrated Class A Preamp. USB, HDMI, Coax, BT, Optical",
-                    price: "$222",
+                    price: "222",
                     status: "In Stock",
                     sku: "KR-Digitalvanguard",
                     description:
@@ -37,7 +37,7 @@ export const category = [
                     ],
                     productName:
                       "2x200Watt Amp w/Integrated Class A Preamp. USB, HDMI, Coax, BT, Optical",
-                    price: "$222",
+                    price: "222",
                     status: "In Stock",
                     sku: "KR-Digitalvanguard",
                     description:
@@ -51,7 +51,7 @@ export const category = [
                     ],
                     productName:
                       "2x200Watt Amp w/Integrated Class A Preamp. USB, HDMI, Coax, BT, Optical",
-                    price: "$222",
+                    price: "222",
                     status: "In Stock",
                     sku: "KR-Digitalvanguard",
                     description:
@@ -67,7 +67,7 @@ export const category = [
                     id: 1,
                     productImage: "",
                     productName: "TANGENT - CD II",
-                    price: "$222",
+                    price: "222",
                     status: "In Stock",
                     sku: "TANCDII",
                   },
@@ -75,7 +75,7 @@ export const category = [
                     id: 2,
                     productImage: "",
                     productName: "TANGENT - CD II",
-                    price: "$222",
+                    price: "222",
                     status: "In Stock",
                     sku: "TANCDII",
                   },

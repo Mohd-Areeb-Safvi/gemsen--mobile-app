@@ -11,7 +11,7 @@ const HeaderAfterLogin = ({ value, center, icon }: any) => {
   const [addToCart, setAddToCart] = useAtom(cart);
 
   const totalcartLength = addToCart?.reduce(
-    (prev, curr) => prev + curr.quantity,
+    (prev: any, curr: any) => prev + curr.quantity,
     0
   );
 
