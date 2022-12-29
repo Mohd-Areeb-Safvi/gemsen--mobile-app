@@ -3,9 +3,18 @@ import React from "react";
 import theme from "../../theme";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { useAtom } from "jotai";
+import { cart } from "../../stores/user";
 
 const HeaderAfterLogin = ({ value, center, icon }: any) => {
   const navigation: any = useNavigation();
+  const [addToCart, setAddToCart] = useAtom(cart);
+
+  const totalcartLength = addToCart?.reduce(
+    (prev, curr) => prev + curr.quantity,
+    0
+  );
+
   return (
     <View
       style={{
@@ -53,7 +62,29 @@ const HeaderAfterLogin = ({ value, center, icon }: any) => {
           size={28}
           style={{ marginRight: 30 }}
         />
-        <Ionicons name="cart" color="#fff" size={28} />
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("AddToCartScreen");
+          }}
+        >
+          <View
+            style={{
+              position: "absolute",
+              right: 2,
+              top: -4,
+              backgroundColor: theme.colors.primary,
+              paddingHorizontal: 3,
+              zIndex: 10,
+              borderRadius: 20,
+            }}
+          >
+            <Text style={{ color: "#fff", fontFamily: theme.font.fontMedium }}>
+              {totalcartLength}
+            </Text>
+          </View>
+
+          <Ionicons name="cart" color="#fff" size={28} />
+        </TouchableOpacity>
       </View>
     </View>
   );

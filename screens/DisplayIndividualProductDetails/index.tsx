@@ -5,8 +5,12 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
+  Animated,
+  Dimensions,
+  StyleSheet,
+  Button,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import HeaderAfterLogin from "../../components/HeaderAfterLogin";
 import theme from "../../theme";
 import Carousel from "react-native-snap-carousel";
@@ -19,21 +23,92 @@ const DisplayIndividualProductDetails = ({ route }: any) => {
 
   const [addToCart, setAddToCart] = useAtom(cart);
 
-  // const a = 1;
+  // const a = { c: 1 };
   // const b = 2;
   // const d = [4];
   // const c = [a, b, ...d];
+  const { width, height } = Dimensions.get("screen");
 
-  const arrayofIds = addToCart?.map((i) => i?.data?.id);
-  console.log(arrayofIds);
-
+  const arrayofIds = addToCart?.map((i: any) => i?.data?.id);
   const alreadyExisted = arrayofIds?.includes(data.id);
 
+  const scrollX = new Animated.Value(0);
+  const scrollX1 = new Animated.Value(0);
+  let position = Animated.divide(scrollX, width);
+
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const fadeIn = () => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 5000,
+      useNativeDriver: false,
+    }).start();
+  };
+
+  const fadeOut = () => {
+    // Will change fadeAnim value to 0 in 3 seconds
+    Animated.timing(fadeAnim, {
+      toValue: 0,
+      duration: 3000,
+      useNativeDriver: false,
+    }).start();
+  };
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    fadingContainer: {
+      padding: 20,
+      backgroundColor: "powderblue",
+    },
+    fadingText: {
+      fontSize: 28,
+    },
+    buttonRow: {
+      flexBasis: 100,
+      justifyContent: "space-evenly",
+      marginVertical: 16,
+    },
+  });
   return (
     <SafeAreaView
       style={{ flex: 1, paddingHorizontal: 20, backgroundColor: "#fff" }}
     >
       <HeaderAfterLogin icon="menu" />
+
+      {/* <Animated.View
+        style={[
+          styles.fadingContainer,
+          {
+            opacity: fadeAnim,
+          },
+        ]}
+      >
+        <Text style={styles.fadingText}>Fading View!</Text>
+      </Animated.View>
+
+      <Animated.View
+        style={[
+          {
+            transform: [
+              {
+                translateY: fadeAnim.interpolate({
+                  inputRange: [0, 0.3, 0.6, 1],
+                  outputRange: [0, 20, 50, -60],
+                }),
+              },
+            ],
+          },
+        ]}
+      >
+        <Text>Fading View!</Text>
+      </Animated.View> */}
+      {/* <View style={styles.buttonRow}>
+        <Button title="Fade In View" onPress={fadeIn} />
+        <Button title="Fade Out View" onPress={fadeOut} />
+      </View> */}
       <ScrollView>
         <View style={{ marginTop: 20 }}>
           <Text
@@ -46,8 +121,57 @@ const DisplayIndividualProductDetails = ({ route }: any) => {
           >
             {data.productName}
           </Text>
-          <View style={{ width: "100%" }}>
-            <ScrollView horizontal>
+          <View style={{ width }}>
+            <ScrollView
+              horizontal={true}
+              pagingEnabled={true}
+              showsHorizontalScrollIndicator={false}
+              onScroll={Animated.event(
+                [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+                { useNativeDriver: false }
+              )}
+              scrollEventThrottle={16}
+            >
+              {data.productImage.map((source: any, i: any) => {
+                return (
+                  <Image
+                    key={i}
+                    style={{ width, height: 400, resizeMode: "contain" }}
+                    source={{ uri: source }}
+                  />
+                );
+              })}
+            </ScrollView>
+            <View style={{ flexDirection: "row", alignSelf: "center" }}>
+              {data.productImage.map((_: any, index: any) => {
+                let opacity = position.interpolate({
+                  inputRange: [index - 1, index, index + 1],
+                  outputRange: [0.1, 1, 0.1],
+                  extrapolate: "clamp",
+                });
+
+                let bg = position.interpolate({
+                  inputRange: [index - 1, index, index + 1],
+                  outputRange: ["red", "green", "orange"],
+                  extrapolate: "clamp",
+                });
+
+                return (
+                  <Animated.View
+                    key={index}
+                    style={{
+                      opacity,
+                      height: 10,
+                      width: 10,
+                      backgroundColor: "#595959",
+                      margin: 8,
+                      borderRadius: 5,
+                    }}
+                  />
+                );
+              })}
+            </View>
+            {/* <ScrollView horizontal>
               {data.productImage?.map((item, index) => {
                 return (
                   <View key={index} style={{}}>
@@ -63,7 +187,7 @@ const DisplayIndividualProductDetails = ({ route }: any) => {
                   </View>
                 );
               })}
-            </ScrollView>
+            </ScrollView> */}
             <Text
               style={{
                 fontFamily: theme.font.fontMedium,
