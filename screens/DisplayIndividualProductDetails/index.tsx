@@ -220,7 +220,38 @@ const DisplayIndividualProductDetails = ({ route }: any) => {
                 );
               })}
             </View>
-
+            <Text
+              style={{
+                fontFamily: theme.font.fontMedium,
+                fontSize: 18,
+                padding: 20,
+              }}
+            >
+              Fashion Size
+            </Text>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                paddingLeft: 20,
+              }}
+            >
+              {["S", "M"]?.map((item) => {
+                return (
+                  <View
+                    style={{
+                      backgroundColor: item,
+                      width: 50,
+                      height: 50,
+                      marginRight: 20,
+                      borderWidth: 1,
+                      borderColor: "#000",
+                    }}
+                    key={item}
+                  ></View>
+                );
+              })}
+            </View>
             <View
               style={{
                 flexDirection: "row",

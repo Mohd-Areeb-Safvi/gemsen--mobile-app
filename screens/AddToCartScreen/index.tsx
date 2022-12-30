@@ -154,6 +154,15 @@ const AddToCartScreen = () => {
           </View>
         );
       })}
+
+      <View style={{borderWidth: 0.2,
+                    borderColor: "#545d63",
+                    borderRadius: 10,
+                    marginLeft:10,
+                    margin:20,
+                    padding:20}}>
+        <Text style={{fontSize:20}}>Enter Coupon Code</Text>
+      </View>
     </SafeAreaView>
   );
 };

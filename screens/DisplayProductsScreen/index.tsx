@@ -12,6 +12,7 @@ import HeaderAfterLogin from "../../components/HeaderAfterLogin";
 import theme from "../../theme";
 import { Ionicons } from "@expo/vector-icons";
 import FooterSection from "../../components/FooterSection";
+import ModalDropdown from 'react-native-modal-dropdown';
 
 const DisplayProductsScreen = ({ route, navigation }: any) => {
   const { data } = route.params;
