@@ -248,7 +248,8 @@ const DisplayIndividualProductDetails = ({ route }: any) => {
                       borderColor: "#000",
                     }}
                     key={item}
-                  ></View>
+                  ><Text>{item}</Text></View>
+
                 );
               })}
             </View>
