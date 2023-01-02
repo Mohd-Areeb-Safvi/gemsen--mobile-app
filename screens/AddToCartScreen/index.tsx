@@ -14,8 +14,9 @@ import theme from "../../theme";
 import { Ionicons } from "@expo/vector-icons";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import SplashScreen from "../SplashScreen";
 
-const AddToCartScreen = () => {
+const AddToCartScreen = ({ navigation }: any) => {
   const [addToCart, setAddToCart] = useAtom(cart);
   const [counter, setCounter] = useState([]);
   const [coupleData, setCoupleData] = useState("");
@@ -49,7 +50,7 @@ const AddToCartScreen = () => {
             padding: 20,
           }}
         >
-          Cart
+          Shopping Cart
         </Text>
         {counter?.map((addToCartItem: any) => {
           return (
@@ -222,7 +223,7 @@ const AddToCartScreen = () => {
                     color: "#fff",
                   }}
                 >
-                  Appy
+                  Apply
                 </Text>
               </TouchableOpacity>
             </View>
@@ -320,7 +321,19 @@ const AddToCartScreen = () => {
             </TouchableOpacity>
           </View>
         ) : (
-          <Text>No Data</Text>
+          <>
+            <Text>You have no items in your shopping cart.</Text>
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <Text>Click</Text>
+
+              <TouchableOpacity
+                onPress={() => navigation.navigate("HomeScreen")}
+              >
+                <Text>here</Text>
+              </TouchableOpacity>
+              <Text>to continue shopping.</Text>
+            </View>
+          </>
         )}
       </KeyboardAwareScrollView>
     </SafeAreaView>
