@@ -2,6 +2,7 @@ const theme = {
   colors: {
     primary: "#077fb4",
     secondary: "#0C0D34",
+    btncolor: "#f36f3e",
     danger: "#eb090d",
     text: "rgba(12,13,52,0.7)",
     white: "#fff",

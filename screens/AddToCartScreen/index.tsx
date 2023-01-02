@@ -300,6 +300,9 @@ const AddToCartScreen = ({ navigation }: any) => {
               </Text>
             </View>
             <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("ShippingAddressScreen");
+              }}
               style={{
                 paddingVertical: 8,
                 paddingHorizontal: 10,

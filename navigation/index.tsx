@@ -49,6 +49,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import CustomDrawer from "./CustomDrawer";
 import DisplayIndividualProductDetails from "../screens/DisplayIndividualProductDetails";
 import AddToCartScreen from "../screens/AddToCartScreen";
+import ShippingAddressScreen from "../screens/ShippingAddressScreen";
 
 export default function Navigation({
   colorScheme,
@@ -189,6 +190,11 @@ function HomeStack() {
       <Stack.Screen
         name="AddToCartScreen"
         component={AddToCartScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ShippingAddressScreen"
+        component={ShippingAddressScreen}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

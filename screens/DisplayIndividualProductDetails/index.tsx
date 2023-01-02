@@ -236,7 +236,7 @@ const DisplayIndividualProductDetails = ({ route }: any) => {
                 paddingLeft: 20,
               }}
             >
-              {["S", "M" , "L"]?.map((item) => {
+              {["S", "M"]?.map((item) => {
                 return (
                   <View
                     style={{
@@ -246,11 +246,13 @@ const DisplayIndividualProductDetails = ({ route }: any) => {
                       marginRight: 20,
                       borderWidth: 1,
                       borderColor: "#000",
-                      justifyContent:"center",
+                      justifyContent: "center",
+                      alignItems: "center",
                     }}
                     key={item}
-                  ><Text>{item}</Text></View>
-
+                  >
+                    <Text>{item}</Text>
+                  </View>
                 );
               })}
             </View>
