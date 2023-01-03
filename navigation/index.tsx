@@ -50,6 +50,8 @@ import CustomDrawer from "./CustomDrawer";
 import DisplayIndividualProductDetails from "../screens/DisplayIndividualProductDetails";
 import AddToCartScreen from "../screens/AddToCartScreen";
 import ShippingAddressScreen from "../screens/ShippingAddressScreen";
+import PaymentMethodScreen from "../screens/PaymentMethodScreen";
+import ReviewOrderScreen from "../screens/ReviewOrderScreen";
 
 export default function Navigation({
   colorScheme,
@@ -195,6 +197,16 @@ function HomeStack() {
       <Stack.Screen
         name="ShippingAddressScreen"
         component={ShippingAddressScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="PaymentMethodScreen"
+        component={PaymentMethodScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ReviewOrderScreen"
+        component={ReviewOrderScreen}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
