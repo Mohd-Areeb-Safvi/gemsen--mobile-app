@@ -10,13 +10,19 @@ import React, { useState } from "react";
 import HeaderAfterLogin from "../../components/HeaderAfterLogin";
 import FooterSection from "../../components/FooterSection";
 import theme from "../../theme";
-import { addressListJotai, shippingMethodsJotai } from "../../stores/user";
+import {
+  addressListJotai,
+  purchaseOrderNumberJotai,
+  shippingMethodsJotai,
+} from "../../stores/user";
 import { useAtom } from "jotai";
 import Navigation from "../../navigation";
 const PaymentMethodScreen = ({ navigation }: any) => {
   const [shippingMethods, setShippingMethods] = useAtom(shippingMethodsJotai);
   const [addressData, setAddressData] = useAtom(addressListJotai);
-  const [purchaseOrderNumberState, setPurchaseOrderNumberState] = useState("");
+  const [purchaseOrderNumberState, setPurchaseOrderNumberState] = useAtom(
+    purchaseOrderNumberJotai
+  );
   const [errorText, setErrorText] = useState("");
   console.log(errorText, "errorText");
   return (

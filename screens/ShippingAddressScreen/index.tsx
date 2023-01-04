@@ -21,7 +21,6 @@ const ShippingAddressScreen = ({ navigation }: any) => {
   const [shippingMethods, setShippingMethods] = useAtom(shippingMethodsJotai);
   const [addressData, setAddressData] = useAtom(addressListJotai);
   const [addToCart, setAddToCart] = useAtom(cart);
-
   const totalPrice = addToCart?.reduce((prev: any, curr: any) => {
     return prev + curr.quantity * curr.data.price;
   }, 0);
@@ -49,21 +48,21 @@ const ShippingAddressScreen = ({ navigation }: any) => {
   const addressList = [
     {
       id: 1,
-      text1: "Staff purchase",
+      text1: "Staff purchase 1",
       text2: "266 APPLEWOOD CRESCENT",
       text3: "CONCORD, Ontario L4K 4B4",
       text4: "Canada",
     },
     {
       id: 2,
-      text1: "Staff purchase",
+      text1: "Staff purchase 2",
       text2: "266 APPLEWOOD CRESCENT",
       text3: "CONCORD, Ontario L4K 4B4",
       text4: "Canada",
     },
     {
       id: 3,
-      text1: "Staff purchase",
+      text1: "Staff purchase 3",
       text2: "266 APPLEWOOD CRESCENT",
       text3: "CONCORD, Ontario L4K 4B4",
       text4: "Canada",
