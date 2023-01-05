@@ -180,6 +180,11 @@ function HomeStack() {
         options={{ headerShown: false }}
       />
       <Stack.Screen
+        name="SearchScreen"
+        component={SearchScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
         name="DisplayProductsScreen"
         component={DisplayProductsScreen}
         options={{ headerShown: false }}

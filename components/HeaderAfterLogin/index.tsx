@@ -56,12 +56,18 @@ const HeaderAfterLogin = ({ value, center, icon }: any) => {
           justifyContent: "flex-end",
         }}
       >
-        <Ionicons
-          name="search"
-          color="#fff"
-          size={28}
-          style={{ marginRight: 30 }}
-        />
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("SearchScreen");
+          }}
+        >
+          <Ionicons
+            name="search"
+            color="#fff"
+            size={28}
+            style={{ marginRight: 30 }}
+          />
+        </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
             navigation.navigate("AddToCartScreen");

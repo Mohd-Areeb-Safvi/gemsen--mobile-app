@@ -16,8 +16,6 @@ const SplashScreen = ({ navigation }: any) => {
   const data2 = async () => {
     const data: any = await AsyncStorage.getItem(`cart${userData.name}`);
     const parsedData = JSON.parse(data);
-
-    console.log("parsedData", parsedData);
     if (data !== null) setAddToCart(parsedData.cart);
   };
   useEffect(() => {
