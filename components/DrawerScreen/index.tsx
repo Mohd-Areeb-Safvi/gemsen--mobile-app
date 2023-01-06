@@ -40,38 +40,63 @@ const DrawerScreen = () => {
             Main menu
           </Text>
         </TouchableOpacity>
-        {category?.map((item) => {
-          return (
-            <TouchableOpacity
-              onPress={async () => {
-                if (item.id === 9) {
-                  await AsyncStorage.clear();
-                  setUserData({});
-                }
-                navigation.navigate(item.route, {
-                  data: item,
-                });
-              }}
-              key={item.id}
-              style={{
-                borderBottomWidth: 1,
-                borderBottomColor: "#ccc",
-                paddingVertical: 20,
-                paddingHorizontal: 20,
-              }}
-            >
-              <Text
+        <View style={{ marginTop: 20 }}>
+          {category?.map((item, index) => {
+            return (
+              <TouchableOpacity
+                onPress={async () => {
+                  if (item.id === 9) {
+                    await AsyncStorage.clear();
+                    setUserData({});
+                  }
+                  navigation.navigate(item.route, {
+                    data: item,
+                  });
+                }}
+                key={item.id}
                 style={{
-                  fontFamily: theme.font.fontLight,
-                  fontSize: 15,
-                  marginLeft: 15,
+                  borderBottomWidth: 1,
+                  borderBottomColor: "#ccc",
+                  paddingVertical: 20,
+                  paddingHorizontal: 20,
+                  shadowColor: "#000",
+                  shadowOffset: {
+                    width: 0,
+                    height: 2,
+                  },
+                  shadowOpacity: 0.25,
+                  shadowRadius: 3.84,
+
+                  elevation: 5,
+                  backgroundColor: "#fff",
+                  marginVertical: 5,
+                  marginHorizontal: 20,
+                  borderRadius: 10,
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
                 }}
               >
-                {item.name}
-              </Text>
-            </TouchableOpacity>
-          );
-        })}
+                <Text
+                  style={{
+                    fontFamily: theme.font.fontLight,
+                    fontSize: 15,
+                    marginLeft: 15,
+                  }}
+                >
+                  {item.name}
+                </Text>
+                {index !== 8 ? (
+                  <>
+                    <Ionicons name="chevron-forward" size={20} />
+                  </>
+                ) : (
+                  <></>
+                )}
+              </TouchableOpacity>
+            );
+          })}
+        </View>
       </ScrollView>
     </View>
   );
