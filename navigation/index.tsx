@@ -52,6 +52,7 @@ import AddToCartScreen from "../screens/AddToCartScreen";
 import ShippingAddressScreen from "../screens/ShippingAddressScreen";
 import PaymentMethodScreen from "../screens/PaymentMethodScreen";
 import ReviewOrderScreen from "../screens/ReviewOrderScreen";
+import SucessOrderScreen from "../screens/SucessOrderScreen";
 
 export default function Navigation({
   colorScheme,
@@ -212,6 +213,11 @@ function HomeStack() {
       <Stack.Screen
         name="ReviewOrderScreen"
         component={ReviewOrderScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="SucessOrderScreen"
+        component={SucessOrderScreen}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

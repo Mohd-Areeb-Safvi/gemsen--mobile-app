@@ -296,7 +296,9 @@ const ReviewOrderScreen = ({ navigation }: any) => {
           </View>
         </View>
         <TouchableOpacity
-          onPress={() => {}}
+          onPress={() => {
+            navigation.navigate("SucessOrderScreen");
+          }}
           style={{
             backgroundColor: theme.colors.btncolor,
             paddingVertical: 9,
