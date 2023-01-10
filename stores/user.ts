@@ -10,3 +10,4 @@ export const shippingMethodsJotai = atom<any>({
 });
 export const addressListJotai = atom<any>({});
 export const purchaseOrderNumberJotai = atom<any>("");
+export const counterValueJotai = atom<any>([]);

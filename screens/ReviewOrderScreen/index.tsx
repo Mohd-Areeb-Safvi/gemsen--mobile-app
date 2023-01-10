@@ -12,17 +12,22 @@ import FooterSection from "../../components/FooterSection";
 import {
   addressListJotai,
   cart,
+  counterValueJotai,
   shippingMethodsJotai,
+  user,
 } from "../../stores/user";
 import { useAtom } from "jotai";
 import theme from "../../theme";
 import { List } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ReviewOrderScreen = ({ navigation }: any) => {
   const [addressData] = useAtom(addressListJotai);
-  const [addToCart] = useAtom(cart);
+  const [addToCart, setAddToCart] = useAtom(cart);
+  const [userData, setUserData] = useAtom(user);
   const [shippingMethods] = useAtom(shippingMethodsJotai);
+  const [counter, setCounter] = useAtom(counterValueJotai);
 
   console.log(shippingMethods);
   const totalPrice = addToCart?.reduce((prev: any, curr: any) => {
@@ -296,7 +301,10 @@ const ReviewOrderScreen = ({ navigation }: any) => {
           </View>
         </View>
         <TouchableOpacity
-          onPress={() => {
+          onPress={async () => {
+            await AsyncStorage.removeItem(`cart${userData.name}`);
+            setCounter([]);
+            setAddToCart([]);
             navigation.navigate("SucessOrderScreen");
           }}
           style={{

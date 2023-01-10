@@ -6,6 +6,8 @@ import {
   TextInput,
   StyleSheet,
   Dimensions,
+  TouchableOpacity,
+  Image,
 } from "react-native";
 import React, { useCallback, useEffect, useState } from "react";
 import HeaderAfterLogin from "../../components/HeaderAfterLogin";
@@ -14,15 +16,16 @@ import { AutoComplete } from "react-native-element-textinput";
 import theme from "../../theme";
 const { width } = Dimensions.get("screen");
 import { debounce } from "lodash";
+import { Ionicons } from "@expo/vector-icons";
 
-const SearchScreen = () => {
+const SearchScreen = ({ navigation }: any) => {
   const [value, setValue] = useState("");
 
   const [searchLength, setSearchLength] = useState<any>();
 
   const [array, setArray] = useState([]);
 
-  const products = [
+  const products: any = [
     {
       id: "1",
       productImage: [
@@ -61,7 +64,7 @@ const SearchScreen = () => {
         "4x200Watt Amp w/Integrated Class A Preamp. USB, HDMI, Coax, BT, Optical",
       price: "222",
       status: "In Stock",
-      sku: "KR-Digitalvanguard",
+      sku: "AR-Digitalvanguard",
       description:
         "The Angelina Tank Dress is simple yet sophisticated. This dress can be thrown over a swimsuit for last minute lunch plans or belted for dinner on the patio. The high-low hemline gives it the perfect amount of swing.",
     },
@@ -75,53 +78,43 @@ const SearchScreen = () => {
         "3x200Watt Amp w/Integrated Class A Preamp. USB, HDMI, Coax, BT, Optical",
       price: "222",
       status: "In Stock",
-      sku: "KR-Digitalvanguard",
+      sku: "FR-Digitalvanguard",
       description:
         "The Angelina Tank Dress is simple yet sophisticated. This dress can be thrown over a swimsuit for last minute lunch plans or belted for dinner on the patio. The high-low hemline gives it the perfect amount of swing.",
     },
   ];
-  const blogsSearch = useCallback(
-    debounce((data: any) => {}, 500),
-    []
-  );
-  // useEffect(() => {
-  //   if (!!value === true) {
-  //     const res = products.filter((obj) =>
-  //       Object.values(obj).some((val) => val.indexOf(value) >= 0)
-  //     );
-  //     console.log(res);
-  //   }
-  // }, [value]);
 
   useEffect(() => {
     if (!!value === true) {
-      const res: any = products.filter((obj) =>
-        Object.values(obj).some((val) => val.includes(value))
+      const res: any = products.filter((obj: any) =>
+        Object.values(obj).some((val: any) => val.includes(value))
       );
       setArray(res);
+    } else if (!!value === false) {
+      setArray(products);
     }
   }, [value]);
-  // const debounceSearch = debounce();
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
       <HeaderAfterLogin icon="menu" />
       {/* <View></View> */}
-      <View style={{ height: 100, zIndex: 100 }}>
+      <View style={{ zIndex: 100 }}>
         <View
           style={{
             marginVertical: 20,
-            position: "absolute",
+            // position: "absolute",
             zIndex: 100,
-            height: !!value === true ? 250 : 0,
-            shadowColor: !!value === true ? "#000" : "#fff",
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 3.84,
+            // height: !!value === true ? 250 : 0,
+            // shadowColor: !!value === true ? "#000" : "#fff",
+            // shadowOffset: {
+            //   width: 0,
+            //   height: 2,
+            // },
+            // shadowOpacity: 0.25,
+            // shadowRadius: 3.84,
 
-            elevation: !!value === true ? 5 : 0,
+            // elevation: !!value === true ? 5 : 0,
             backgroundColor: "#fff",
             width: "96%",
             alignSelf: "center",
@@ -146,25 +139,63 @@ const SearchScreen = () => {
             }}
           />
           <ScrollView>
-            {!!value === true && array?.length > 0 ? (
-              array?.map((item: any) => {
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                flexWrap: "wrap",
+                marginTop: 20,
+              }}
+            >
+              {array?.map((item: any) => {
                 return (
-                  <View style={{ paddingHorizontal: 20, paddingVertical: 10 }}>
-                    <Text>{item.productName}</Text>
-                  </View>
+                  <TouchableOpacity
+                    onPress={() => {
+                      navigation.navigate("DisplayIndividualProductDetails", {
+                        data: item,
+                      });
+                    }}
+                    key={item.id}
+                    style={{
+                      paddingVertical: 10,
+                      width: "50%",
+                    }}
+                  >
+                    <Image
+                      source={{ uri: item.productImage[0] }}
+                      style={{
+                        width: "70%",
+                        height: 200,
+                        resizeMode: "repeat",
+                        alignSelf: "center",
+                      }}
+                    />
+                    <View
+                      style={{
+                        width: 130,
+                        alignSelf: "center",
+                        marginVertical: 10,
+                      }}
+                    >
+                      <Text numberOfLines={1} ellipsizeMode="tail">
+                        {item.productName}
+                      </Text>
+                    </View>
+                    <View style={{ width: 130, alignSelf: "center" }}>
+                      <Text>{item.price}</Text>
+                    </View>
+                  </TouchableOpacity>
                 );
-              })
-            ) : (
-              <Text>No Data</Text>
-            )}
+              })}
+            </View>
           </ScrollView>
-          <View>
+          {/* <View>
             <View style={{ backgroundColor: "#fff" }}>
               <Text style={{ textAlign: "center" }}>
                 View All {array.length} results
               </Text>
             </View>
-          </View>
+          </View> */}
         </View>
       </View>
       <View style={{ flexDirection: "row", flexWrap: "wrap" }}>

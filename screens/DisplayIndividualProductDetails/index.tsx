@@ -29,8 +29,8 @@ const DisplayIndividualProductDetails = ({ route }: any) => {
   // const c = [a, b, ...d];
   const { width, height } = Dimensions.get("screen");
 
-  const arrayofIds = addToCart?.map((i: any) => i?.data?.id);
-  const alreadyExisted = arrayofIds?.includes(data.id);
+  const arrayofIds = addToCart?.map((i: any) => i?.data?.productName);
+  const alreadyExisted = arrayofIds?.includes(data.productName);
 
   const scrollX = new Animated.Value(0);
   const scrollX1 = new Animated.Value(0);

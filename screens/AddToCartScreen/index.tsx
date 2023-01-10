@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import HeaderAfterLogin from "../../components/HeaderAfterLogin";
-import { cart, user } from "../../stores/user";
+import { cart, counterValueJotai, user } from "../../stores/user";
 import { useAtom } from "jotai";
 import theme from "../../theme";
 import { Ionicons } from "@expo/vector-icons";
@@ -18,7 +18,7 @@ import SplashScreen from "../SplashScreen";
 
 const AddToCartScreen = ({ navigation }: any) => {
   const [addToCart, setAddToCart] = useAtom(cart);
-  const [counter, setCounter] = useState([]);
+  const [counter, setCounter] = useAtom(counterValueJotai);
   const [coupleData, setCoupleData] = useState("");
   const [userData, setUserData] = useAtom(user);
   useEffect(() => {
