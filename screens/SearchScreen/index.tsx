@@ -5,21 +5,26 @@ import {
   ScrollView,
   TextInput,
   StyleSheet,
+  Dimensions,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import HeaderAfterLogin from "../../components/HeaderAfterLogin";
 import FooterSection from "../../components/FooterSection";
 import { AutoComplete } from "react-native-element-textinput";
 import theme from "../../theme";
+const { width } = Dimensions.get("screen");
+import { debounce } from "lodash";
 
 const SearchScreen = () => {
   const [value, setValue] = useState("");
 
   const [searchLength, setSearchLength] = useState<any>();
-  console.log("searchLength", searchLength, value);
+
+  const [array, setArray] = useState([]);
+
   const products = [
     {
-      id: 1,
+      id: "1",
       productImage: [
         "https://elasticsearch-pwa-m2.magento-demo.amasty.com/media/catalog/product/cache/3119fdc86065b8c295ab10a11e7294fc/v/d/vd01-ll_main_2.jpg?auto=webp&format=pjpg&width=640&height=800&fit=cover",
         "https://elasticsearch-pwa-m2.magento-demo.amasty.com/media/catalog/product/cache/3119fdc86065b8c295ab10a11e7294fc/v/d/vd01-ll_main_2.jpg?auto=webp&format=pjpg&width=640&height=800&fit=cover",
@@ -33,7 +38,7 @@ const SearchScreen = () => {
         "The Angelina Tank Dress is simple yet sophisticated. This dress can be thrown over a swimsuit for last minute lunch plans or belted for dinner on the patio. The high-low hemline gives it the perfect amount of swing.",
     },
     {
-      id: 2,
+      id: "2",
       productImage: [
         "https://elasticsearch-pwa-m2.magento-demo.amasty.com/media/catalog/product/cache/3119fdc86065b8c295ab10a11e7294fc/v/d/vd01-ll_main_2.jpg?auto=webp&format=pjpg&width=640&height=800&fit=cover",
         "https://elasticsearch-pwa-m2.magento-demo.amasty.com/media/catalog/product/cache/3119fdc86065b8c295ab10a11e7294fc/v/d/vd01-ll_main_2.jpg?auto=webp&format=pjpg&width=640&height=800&fit=cover",
@@ -47,13 +52,13 @@ const SearchScreen = () => {
         "The Angelina Tank Dress is simple yet sophisticated. This dress can be thrown over a swimsuit for last minute lunch plans or belted for dinner on the patio. The high-low hemline gives it the perfect amount of swing.",
     },
     {
-      id: 4,
+      id: "4",
       productImage: [
         "https://elasticsearch-pwa-m2.magento-demo.amasty.com/media/catalog/product/cache/3119fdc86065b8c295ab10a11e7294fc/v/d/vd01-ll_main_2.jpg?auto=webp&format=pjpg&width=640&height=800&fit=cover",
         "https://elasticsearch-pwa-m2.magento-demo.amasty.com/media/catalog/product/cache/3119fdc86065b8c295ab10a11e7294fc/v/d/vd01-ll_main_2.jpg?auto=webp&format=pjpg&width=640&height=800&fit=cover",
       ],
       productName:
-        "2x200Watt Amp w/Integrated Class A Preamp. USB, HDMI, Coax, BT, Optical",
+        "4x200Watt Amp w/Integrated Class A Preamp. USB, HDMI, Coax, BT, Optical",
       price: "222",
       status: "In Stock",
       sku: "KR-Digitalvanguard",
@@ -61,13 +66,13 @@ const SearchScreen = () => {
         "The Angelina Tank Dress is simple yet sophisticated. This dress can be thrown over a swimsuit for last minute lunch plans or belted for dinner on the patio. The high-low hemline gives it the perfect amount of swing.",
     },
     {
-      id: 3,
+      id: "3",
       productImage: [
         "https://elasticsearch-pwa-m2.magento-demo.amasty.com/media/catalog/product/cache/3119fdc86065b8c295ab10a11e7294fc/v/d/vd01-ll_main_2.jpg?auto=webp&format=pjpg&width=640&height=800&fit=cover",
         "https://elasticsearch-pwa-m2.magento-demo.amasty.com/media/catalog/product/cache/3119fdc86065b8c295ab10a11e7294fc/v/d/vd01-ll_main_2.jpg?auto=webp&format=pjpg&width=640&height=800&fit=cover",
       ],
       productName:
-        "2x200Watt Amp w/Integrated Class A Preamp. USB, HDMI, Coax, BT, Optical",
+        "3x200Watt Amp w/Integrated Class A Preamp. USB, HDMI, Coax, BT, Optical",
       price: "222",
       status: "In Stock",
       sku: "KR-Digitalvanguard",
@@ -75,17 +80,28 @@ const SearchScreen = () => {
         "The Angelina Tank Dress is simple yet sophisticated. This dress can be thrown over a swimsuit for last minute lunch plans or belted for dinner on the patio. The high-low hemline gives it the perfect amount of swing.",
     },
   ];
-
-  const productName = products?.map((item) => item.productName);
-  const skuName = products?.map((item) => item.sku);
-
-  const newArr = [...productName, ...skuName];
+  const blogsSearch = useCallback(
+    debounce((data: any) => {}, 500),
+    []
+  );
+  // useEffect(() => {
+  //   if (!!value === true) {
+  //     const res = products.filter((obj) =>
+  //       Object.values(obj).some((val) => val.indexOf(value) >= 0)
+  //     );
+  //     console.log(res);
+  //   }
+  // }, [value]);
 
   useEffect(() => {
-    console.log(1);
-    return () => {};
-  }, []);
-
+    if (!!value === true) {
+      const res: any = products.filter((obj) =>
+        Object.values(obj).some((val) => val.includes(value))
+      );
+      setArray(res);
+    }
+  }, [value]);
+  // const debounceSearch = debounce();
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
       <HeaderAfterLogin icon="menu" />
@@ -95,66 +111,60 @@ const SearchScreen = () => {
           style={{
             marginVertical: 20,
             position: "absolute",
-            width: "100%",
             zIndex: 100,
+            height: !!value === true ? 250 : 0,
+            shadowColor: !!value === true ? "#000" : "#fff",
+            shadowOffset: {
+              width: 0,
+              height: 2,
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 3.84,
+
+            elevation: !!value === true ? 5 : 0,
+            backgroundColor: "#fff",
+            width: "96%",
+            alignSelf: "center",
+            padding: 10,
+            borderRadius: 20,
           }}
         >
-          {/* <TextInput
+          <TextInput
             placeholder="Search for products..."
             placeholderTextColor={"#000"}
             style={{
               borderWidth: 1,
               borderColor: "#aaa",
-              paddingVertical: 10,
               marginHorizontal: 20,
               paddingHorizontal: 20,
               borderRadius: 5,
+              height: 40,
             }}
-          /> */}
-          <AutoComplete
             value={value}
-            data={newArr}
-            style={styles.input}
-            inputStyle={styles.inputStyle}
-            labelStyle={styles.labelStyle}
-            placeholderStyle={styles.placeholderStyle}
-            textErrorStyle={styles.textErrorStyle}
-            // label="Auto Complete"
-            placeholder="Search for productss..."
-            placeholderTextColor="gray"
             onChangeText={(e) => {
               setValue(e);
             }}
-            renderItem={(item: any) => {
-              console.log(item, "aa");
-              setSearchLength(item);
-              return (
-                <View
-                  style={{
-                    paddingVertical: 10,
-                    paddingHorizontal: 20,
-                    borderBottomWidth: 1,
-                    borderBottomColor: "#ccc",
-                  }}
-                >
-                  <Text
-                    style={{ fontFamily: theme.font.fontLight, fontSize: 12 }}
-                  >
-                    {item.productName}
-                  </Text>
-                </View>
-              );
-            }}
           />
-          {!!searchLength === true && !!value === true ? (
+          <ScrollView>
+            {!!value === true && array?.length > 0 ? (
+              array?.map((item: any) => {
+                return (
+                  <View style={{ paddingHorizontal: 20, paddingVertical: 10 }}>
+                    <Text>{item.productName}</Text>
+                  </View>
+                );
+              })
+            ) : (
+              <Text>No Data</Text>
+            )}
+          </ScrollView>
+          <View>
             <View style={{ backgroundColor: "#fff" }}>
               <Text style={{ textAlign: "center" }}>
-                View All {products.length} results
+                View All {array.length} results
               </Text>
             </View>
-          ) : (
-            <></>
-          )}
+          </View>
         </View>
       </View>
       <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
