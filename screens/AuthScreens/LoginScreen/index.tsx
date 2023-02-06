@@ -17,53 +17,37 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const LoginScreen = ({ navigation }: any) => {
   const [data, setData] = useAtom(user);
 
-  const emailAddress = "areeb@gmail.com";
-  const pass = "123456";
-  const name1 = "Areeb";
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const login = async () => {
-    if (email !== emailAddress || password !== pass || name1 !== name) {
-      setError("User Not Exist");
-    } else if (email === emailAddress && password === pass && name1 === name) {
-      setError("User Exist");
-      await AsyncStorage.setItem(
-        "loggedIn",
-        JSON.stringify({ isLogged: true, email, password, name })
-      );
-      setData({
-        email,
-        name,
-        password,
-        isLogged: true,
+    const body = {
+      name: name,
+      email: email,
+      password: password,
+    };
+
+    axios
+      .post("http://localhost:5005/api/saveduser/saved", body)
+      .then(async (res) => {
+        console.log(res?.data);
+        setSuccess("User Saved Successfully");
+        await AsyncStorage.setItem("accessToken", res?.data?.accessToken);
+        setTimeout(() => {
+          setSuccess("");
+          navigation.navigate("Root");
+        }, 1000);
+      })
+      .catch((error) => {
+        const parsedData = JSON.parse(error.response?.data);
+        setError(parsedData?.message);
+        setTimeout(() => {
+          setError("");
+        }, 1000);
       });
-      navigation.navigate("HomeScreen");
-    }
   };
-
-  // const a = async () => {
-  //   return 2;
-  // };
-  // const data1 = async () => {
-  //   console.log(1, "1");
-
-  //   const d = await a();
-  //   console.log(d);
-
-  //   // a().then((res) => {
-  //   //   console.log(res, "2");
-  //   // });
-
-  //   console.log(3, "3");
-  // };
-
-  // useEffect(() => {
-  //   data1();
-  //   return () => {};
-  // }, []);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -78,6 +62,7 @@ const LoginScreen = ({ navigation }: any) => {
         LoginScreen
       </Text>
       {error ? <Text>{error}</Text> : <></>}
+      {success ? <Text>{success}</Text> : <></>}
       <TextInput
         value={name}
         autoCapitalize={"none"}

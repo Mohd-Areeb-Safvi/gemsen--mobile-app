@@ -14,6 +14,74 @@ import NewModel from "../../assets/images/newmorel.png";
 const HomeScreenWhenUserExist = () => {
   const [data, setData] = useAtom(user);
 
+  const user1 = [
+    {
+      data: {
+        name: "Areeb",
+      },
+      _id: "63d0a66dd884be140aac803e",
+      name: "Areeb",
+      password: "123456",
+      email: "adminaaaa1@admin.com",
+      __v: 0,
+    },
+    {
+      data: {
+        name: "Areeb",
+        email: "a@admin.com",
+      },
+      _id: "63d0a6a663c78db2a52cc78f",
+      name: "Areeb",
+      password: "123456",
+      email: "a@admin.com",
+      __v: 0,
+    },
+    {
+      data: {
+        name: "Areeb",
+        email: "a@aadmin.com",
+      },
+      _id: "63d0a6d4f6971c17a90bc803",
+      name: "Areeb",
+      password: "123456",
+      email: "a@aadmin.com",
+      __v: 0,
+    },
+    {
+      data: {
+        name: "Areeb",
+        email: "a@aaadmin.com",
+      },
+      _id: "63d0a6f83be62cda587525d4",
+      name: "Areeb",
+      password: "123456",
+      email: "a@aaadmin.com",
+      __v: 0,
+    },
+    {
+      data: {
+        name: "Areeb",
+        email: "a@aaaadmin.com",
+      },
+      _id: "63d0a72ebdb89a775c8c4e55",
+      name: "Areeb",
+      password: "123456",
+      email: "a@aaaadmin.com",
+      __v: 0,
+    },
+    {
+      data: {
+        name: "Areeb",
+        email: "a@aaaaadmin.com",
+      },
+      _id: "63d0a7b6aad78f374f4291bf",
+      name: "Areeb",
+      password: "123456",
+      email: "a@aaaaadmin.com",
+      __v: 0,
+    },
+  ];
+
   return (
     <View style={{ flex: 1 }}>
       <ScrollView showsVerticalScrollIndicator={false}>
