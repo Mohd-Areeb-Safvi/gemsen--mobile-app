@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAtom } from "jotai";
 import { user } from "../../stores/user";
@@ -7,12 +7,20 @@ import { Ionicons } from "@expo/vector-icons";
 import theme from "../../theme";
 import { DrawerActions, useNavigation } from "@react-navigation/native";
 import { category } from "../../data";
+import { getCategory } from "../../store/services/category";
 
 const DrawerScreen = () => {
   const [userData, setUserData] = useAtom(user);
 
   const navigation: any = useNavigation();
-
+  const [categoryDetails, setCategoryDetails] = useState([]);
+  useEffect(() => {
+    getCategory().then((res: any) => {
+      console.log("res", res);
+      setCategoryDetails(res?.category);
+    });
+    return () => {};
+  }, []);
   return (
     <View style={{ flex: 1 }}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -41,19 +49,15 @@ const DrawerScreen = () => {
           </Text>
         </TouchableOpacity>
         <View style={{ marginTop: 20 }}>
-          {category?.map((item, index) => {
+          {categoryDetails?.map((item: any, index) => {
             return (
               <TouchableOpacity
                 onPress={async () => {
-                  if (item.id === 9) {
-                    await AsyncStorage.clear();
-                    setUserData({});
-                  }
-                  navigation.navigate(item.route, {
-                    data: item,
+                  navigation.navigate("SubCategoryScreen", {
+                    data1: item,
                   });
                 }}
-                key={item.id}
+                key={item._id}
                 style={{
                   borderBottomWidth: 1,
                   borderBottomColor: "#ccc",
@@ -96,6 +100,44 @@ const DrawerScreen = () => {
               </TouchableOpacity>
             );
           })}
+          <TouchableOpacity
+            onPress={async () => {
+              await AsyncStorage.clear();
+              setUserData({});
+            }}
+            style={{
+              borderBottomWidth: 1,
+              borderBottomColor: "#ccc",
+              paddingVertical: 20,
+              paddingHorizontal: 20,
+              shadowColor: "#000",
+              shadowOffset: {
+                width: 0,
+                height: 2,
+              },
+              shadowOpacity: 0.25,
+              shadowRadius: 3.84,
+
+              elevation: 5,
+              backgroundColor: "#fff",
+              marginVertical: 5,
+              marginHorizontal: 20,
+              borderRadius: 10,
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <Text
+              style={{
+                fontFamily: theme.font.fontLight,
+                fontSize: 15,
+                marginLeft: 15,
+              }}
+            >
+              Logout
+            </Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </View>

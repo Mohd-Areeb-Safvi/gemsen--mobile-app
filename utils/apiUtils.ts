@@ -145,28 +145,14 @@ export const callApi = (
     )
       .then((response) => {
         resolve(response.data);
-        // localStorage.setItem("timer", 1800);
       })
       .catch((err) => {
         if (!err.response) {
           reject(err);
-          // if (!getPageQuery().redirect) {
-          //   // history.push(
-          //   //   `/server-unreachable?${stringify({
-          //   //     redirect: window.location.href,
-          //   //   })}`,
-          //   // );
-          // }
+
           return;
         }
         if (err?.response?.status === 401) {
-          //   history.push(
-          //     `/user/login?${stringify({
-          //       redirect: window.location.href,
-          //     })}`
-          //   );
-          // unauthorized
-          //   clearLocalStroage();
           reject(err.response);
         }
         if (err?.response) {

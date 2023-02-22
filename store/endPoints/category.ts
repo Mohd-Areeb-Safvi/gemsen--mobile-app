@@ -8,4 +8,11 @@ export const categoryEndPoints = {
       uri: "/category/getMainCategoryDetails",
     },
   },
+  getSubCategory: {
+    v1: {
+      ...defaults.methods.GET,
+      ...defaults.versions.v1,
+      uri: "/category/getSubCategory/:id",
+    },
+  },
 };

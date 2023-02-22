@@ -8,11 +8,11 @@ export const authEndPoints = {
       uri: "/auth/login",
     },
   },
-  fp: {
+  currentUser: {
     v1: {
-      ...defaults.methods.POST,
+      ...defaults.methods.GET,
       ...defaults.versions.v1,
-      uri: "/auth/fp",
+      uri: "/auth/me",
     },
   },
 };

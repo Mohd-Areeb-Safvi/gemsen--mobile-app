@@ -5,10 +5,11 @@ export const userLogin = ({ body }: any) =>
   callApi({
     uriEndPoint: authEndPoints.login.v1,
     body,
+  }).catch((err) => {
+    throw err;
   });
 
-export const fp = ({ body }: any) =>
+export const currentUser = () =>
   callApi({
-    uriEndPoint: authEndPoints.fp.v1,
-    body,
+    uriEndPoint: authEndPoints.currentUser.v1,
   });

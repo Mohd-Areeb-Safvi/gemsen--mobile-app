@@ -1,18 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, SafeAreaView } from "react-native";
 
 import ShopByCategoryDetails from "../../components/ShopByCategoryDetails";
+import { getSubCategory } from "../../store/services/category";
 
 const SubCategoryScreen = ({ route }: any) => {
-  const { data } = route.params;
-  const [activeSections, setActiveSections] = useState([]);
-  const [collapsed, setCollapsed] = useState(true);
-  const [multipleSelect, setMultipleSelect] = useState(false);
+  const { data1 } = route.params;
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={{}}>
-        <ShopByCategoryDetails data={data} />
+        <ShopByCategoryDetails data={data1} />
       </ScrollView>
     </SafeAreaView>
   );

@@ -17,7 +17,7 @@ import HomeScreenWhenUserExist from "../../components/HomeScreenWhenUserExist";
 const { width } = Dimensions.get("window");
 const HomeScreen = ({ navigation }: any) => {
   const [data, setData] = useAtom(user);
-
+  console.log("data", data);
   return (
     <SafeAreaView style={{ flex: 1 }}>
       {data?.email ? (

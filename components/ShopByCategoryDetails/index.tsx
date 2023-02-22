@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component, useEffect, useState } from "react";
 import {
   Switch,
   ScrollView,
@@ -12,6 +12,7 @@ import Accordion from "react-native-collapsible/Accordion";
 import theme from "../../theme";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
+import { getSubCategory } from "../../store/services/category";
 
 const SubCategoryScreen = ({ data }: any) => {
   const navigation: any = useNavigation();
@@ -25,6 +26,16 @@ const SubCategoryScreen = ({ data }: any) => {
   const setSections = (sections: any) => {
     setActiveSections(sections);
   };
+
+  useEffect(() => {
+    getSubCategory({
+      pathParams: {
+        id: data?._id,
+      },
+    }).then((res) => {
+      console.log("res", res);
+    });
+  }, [data]);
 
   const renderHeader = (section: any, _: any, isActive: any) => {
     return (
@@ -102,7 +113,7 @@ const SubCategoryScreen = ({ data }: any) => {
         <Ionicons name="chevron-back-outline" size={27} color={"#fff"} />
       </View>
       <ScrollView contentContainerStyle={{ paddingTop: 2 }}>
-        <Accordion
+        {/* <Accordion
           align="bottom"
           activeSections={activeSections}
           sections={data?.category}
@@ -113,7 +124,7 @@ const SubCategoryScreen = ({ data }: any) => {
           duration={400}
           onChange={setSections}
           renderAsFlatList={false}
-        />
+        /> */}
       </ScrollView>
     </View>
   );

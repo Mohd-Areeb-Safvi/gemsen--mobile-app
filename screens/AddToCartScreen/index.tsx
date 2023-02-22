@@ -53,6 +53,7 @@ const AddToCartScreen = ({ navigation }: any) => {
           Shopping Cart
         </Text>
         {counter?.map((addToCartItem: any) => {
+          console.log(addToCartItem);
           return (
             <View
               key={addToCartItem.data.id}

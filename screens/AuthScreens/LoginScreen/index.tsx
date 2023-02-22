@@ -44,7 +44,7 @@ const LoginScreen = ({ navigation }: any) => {
           }, 1200);
         })
         .catch(async (err: any) => {
-          // console.log(err);
+          setError(err?.data?.message);
         });
     }
   };
