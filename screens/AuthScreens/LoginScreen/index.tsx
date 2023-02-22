@@ -13,6 +13,8 @@ import { useAtom } from "jotai";
 import { user } from "../../../stores/user";
 import Navigation from "../../../navigation";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { userLogin } from "../../../store/services/auth";
+import { getCategory } from "../../../store/services/category";
 
 const LoginScreen = ({ navigation }: any) => {
   const [data, setData] = useAtom(user);
@@ -23,30 +25,28 @@ const LoginScreen = ({ navigation }: any) => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const login = async () => {
-    const body = {
-      name: name,
-      email: email,
-      password: password,
-    };
+    if (!!name === false || !!email === false || !!password === false) {
+      setError("Please enter the details");
+    } else if (name && email && password) {
+      const body = {
+        name: name,
+        email: email,
+        password: password,
+      };
 
-    axios
-      .post("http://localhost:5005/api/saveduser/saved", body)
-      .then(async (res) => {
-        console.log(res?.data);
-        setSuccess("User Saved Successfully");
-        await AsyncStorage.setItem("accessToken", res?.data?.accessToken);
-        setTimeout(() => {
-          setSuccess("");
-          navigation.navigate("Root");
-        }, 1000);
-      })
-      .catch((error) => {
-        const parsedData = JSON.parse(error.response?.data);
-        setError(parsedData?.message);
-        setTimeout(() => {
-          setError("");
-        }, 1000);
-      });
+      userLogin({ body })
+        .then(async (res: any) => {
+          console.log("res", res);
+          setData(res?.data?.data);
+          await AsyncStorage.setItem("accessToken", res?.accessToken);
+          setTimeout(() => {
+            navigation.navigate("Root");
+          }, 1200);
+        })
+        .catch(async (err: any) => {
+          // console.log(err);
+        });
+    }
   };
 
   return (
