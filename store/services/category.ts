@@ -5,9 +5,8 @@ export const getCategory = () =>
   callApi({
     uriEndPoint: categoryEndPoints.getCategory.v1,
   });
-export const getSubCategory = ({ pathParams }: any) => {
-  return callApi({
+export const getSubCategory = ({ pathParams }: any) =>
+  callApi({
     uriEndPoint: categoryEndPoints.getSubCategory.v1,
     pathParams,
   });
-};

@@ -28,13 +28,13 @@ const LoginScreen = ({ navigation }: any) => {
     if (!!name === false || !!email === false || !!password === false) {
       setError("Please enter the details");
     } else if (name && email && password) {
-      const body = {
-        name: name,
-        email: email,
-        password: password,
-      };
-
-      userLogin({ body })
+      userLogin({
+        body: {
+          name: name,
+          email: email,
+          password: password,
+        },
+      })
         .then(async (res: any) => {
           console.log("res", res);
           setData(res?.data?.data);
@@ -44,6 +44,7 @@ const LoginScreen = ({ navigation }: any) => {
           }, 1200);
         })
         .catch(async (err: any) => {
+          console.log("err?.data?.message", err?.data?.message);
           setError(err?.data?.message);
         });
     }

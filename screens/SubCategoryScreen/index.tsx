@@ -6,7 +6,6 @@ import { getSubCategory } from "../../store/services/category";
 
 const SubCategoryScreen = ({ route }: any) => {
   const { data1 } = route.params;
-
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={{}}>

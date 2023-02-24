@@ -14,13 +14,18 @@ const DrawerScreen = () => {
 
   const navigation: any = useNavigation();
   const [categoryDetails, setCategoryDetails] = useState([]);
+
   useEffect(() => {
-    getCategory().then((res: any) => {
-      console.log("res", res);
-      setCategoryDetails(res?.category);
-    });
-    return () => {};
+    getCategory()
+      .then((res: any) => {
+        console.log(res, "aaaa");
+        setCategoryDetails(res?.category);
+      })
+      .catch((err1123123123) => {
+        console.log("first", err1123123123);
+      });
   }, []);
+
   return (
     <View style={{ flex: 1 }}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -90,13 +95,8 @@ const DrawerScreen = () => {
                 >
                   {item.name}
                 </Text>
-                {index !== 8 ? (
-                  <>
-                    <Ionicons name="chevron-forward" size={20} />
-                  </>
-                ) : (
-                  <></>
-                )}
+
+                <Ionicons name="chevron-forward" size={20} />
               </TouchableOpacity>
             );
           })}

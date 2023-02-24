@@ -24,16 +24,16 @@ const SubCategoryScreen = ({ data }: any) => {
     setCollapsed(!collapsed);
   };
   const setSections = (sections: any) => {
-    setActiveSections(sections);
+    // setActiveSections(sections);
   };
-
+  const [subCategoryDetails, setSubCategoryDetails] = useState([]);
   useEffect(() => {
     getSubCategory({
       pathParams: {
         id: data?._id,
       },
-    }).then((res) => {
-      console.log("res", res);
+    }).then((res: any) => {
+      setSubCategoryDetails(res);
     });
   }, [data]);
 
@@ -41,10 +41,10 @@ const SubCategoryScreen = ({ data }: any) => {
     return (
       <Animatable.View
         duration={400}
-        style={[styles.header, isActive ? styles.active : styles.inactive]}
+        style={[styles.header]}
         transition="backgroundColor"
       >
-        <Text style={styles.headerText}>{section.mainCateogry}</Text>
+        <Text style={styles.headerText}>{section.name}</Text>
       </Animatable.View>
     );
   };
@@ -52,40 +52,42 @@ const SubCategoryScreen = ({ data }: any) => {
   const renderContent = (section: any, _: any, isActive: any) => {
     console.group(section);
     return (
-      <Animatable.View
-        duration={400}
-        style={[styles.content, isActive ? styles.active : styles.inactive]}
-        transition="backgroundColor"
-      >
-        {section?.subCategories?.map((item: any) => {
-          return (
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate("NestedSubCategoryScreen", {
-                  data: item,
-                });
-              }}
-              key={item.id}
-              style={{
-                paddingVertical: 10,
-                borderBottomColor: "#ccc",
-                borderBottomWidth: 0.5,
-                width: "60%",
-                alignSelf: "center",
-              }}
-            >
-              <Text
-                style={{
-                  fontFamily: theme.font.fontMedium,
-                  textAlign: "center",
-                }}
-              >
-                {item.category}
-              </Text>
-            </TouchableOpacity>
-          );
-        })}
-      </Animatable.View>
+      // <Animatable.View
+      //   duration={400}
+      //   style={[styles.content, isActive ? styles.active : styles.inactive]}
+      //   transition="backgroundColor"
+      // >
+      //   {section?.subCategories?.map((item: any) => {
+      //     return (
+      //       <TouchableOpacity
+      //         onPress={() => {
+      //           navigation.navigate("NestedSubCategoryScreen", {
+      //             data: item,
+      //           });
+      //         }}
+      //         key={item.id}
+      //         style={{
+      //           paddingVertical: 10,
+      //           borderBottomColor: "#ccc",
+      //           borderBottomWidth: 0.5,
+      //           width: "60%",
+      //           alignSelf: "center",
+      //         }}
+      //       >
+      //         <Text
+      //           style={{
+      //             fontFamily: theme.font.fontMedium,
+      //             textAlign: "center",
+      //           }}
+      //         >
+      //           {item.category}
+      //         </Text>
+      //       </TouchableOpacity>
+      //     );
+      //   })}
+      // </Animatable.View>
+
+      <></>
     );
   };
 
@@ -113,18 +115,18 @@ const SubCategoryScreen = ({ data }: any) => {
         <Ionicons name="chevron-back-outline" size={27} color={"#fff"} />
       </View>
       <ScrollView contentContainerStyle={{ paddingTop: 2 }}>
-        {/* <Accordion
+        <Accordion
           align="bottom"
           activeSections={activeSections}
-          sections={data?.category}
-          touchableComponent={TouchableOpacity}
+          sections={subCategoryDetails?.data}
+          // touchableComponent={TouchableOpacity}
           expandMultiple={multipleSelect}
           renderHeader={renderHeader}
           renderContent={renderContent}
           duration={400}
           onChange={setSections}
           renderAsFlatList={false}
-        /> */}
+        />
       </ScrollView>
     </View>
   );

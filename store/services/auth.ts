@@ -5,8 +5,6 @@ export const userLogin = ({ body }: any) =>
   callApi({
     uriEndPoint: authEndPoints.login.v1,
     body,
-  }).catch((err) => {
-    throw err;
   });
 
 export const currentUser = () =>
