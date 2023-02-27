@@ -23,9 +23,7 @@ const SubCategoryScreen = ({ data }: any) => {
   const toggleExpanded = () => {
     setCollapsed(!collapsed);
   };
-  const setSections = (sections: any) => {
-    // setActiveSections(sections);
-  };
+
   const [subCategoryDetails, setSubCategoryDetails] = useState([]);
   useEffect(() => {
     getSubCategory({
@@ -35,60 +33,73 @@ const SubCategoryScreen = ({ data }: any) => {
     }).then((res: any) => {
       setSubCategoryDetails(res);
     });
-  }, [data]);
+  }, [data?._id]);
 
-  const renderHeader = (section: any, _: any, isActive: any) => {
+  const renderHeader = (item: any, index: any) => {
     return (
-      <Animatable.View
-        duration={400}
-        style={[styles.header]}
-        transition="backgroundColor"
-      >
-        <Text style={styles.headerText}>{section.name}</Text>
-      </Animatable.View>
+      <View style={[styles.header]}>
+        <Text style={styles.headerText}>{item.name}</Text>
+      </View>
     );
   };
 
   const renderContent = (section: any, _: any, isActive: any) => {
-    console.group(section);
     return (
-      // <Animatable.View
-      //   duration={400}
-      //   style={[styles.content, isActive ? styles.active : styles.inactive]}
-      //   transition="backgroundColor"
-      // >
-      //   {section?.subCategories?.map((item: any) => {
-      //     return (
-      //       <TouchableOpacity
-      //         onPress={() => {
-      //           navigation.navigate("NestedSubCategoryScreen", {
-      //             data: item,
-      //           });
-      //         }}
-      //         key={item.id}
-      //         style={{
-      //           paddingVertical: 10,
-      //           borderBottomColor: "#ccc",
-      //           borderBottomWidth: 0.5,
-      //           width: "60%",
-      //           alignSelf: "center",
-      //         }}
-      //       >
-      //         <Text
-      //           style={{
-      //             fontFamily: theme.font.fontMedium,
-      //             textAlign: "center",
-      //           }}
-      //         >
-      //           {item.category}
-      //         </Text>
-      //       </TouchableOpacity>
-      //     );
-      //   })}
-      // </Animatable.View>
-
-      <></>
+      <Animatable.View
+        duration={400}
+        style={[styles.content, isActive ? styles.active : styles.inactive]}
+        transition="backgroundColor"
+      >
+        {section?.nestedSubCategory?.length === 0 ? (
+          <Text>No Data</Text>
+        ) : (
+          section?.nestedSubCategory?.map((item: any) => {
+            return (
+              <TouchableOpacity
+                onPress={() => {
+                  // navigation.navigate("NestedSubCategoryScreen", {
+                  //   data: item,
+                  // });
+                }}
+                key={item._id}
+                style={{
+                  paddingVertical: 10,
+                  borderBottomColor: "#ccc",
+                  borderBottomWidth: 0.5,
+                  width: "60%",
+                  alignSelf: "center",
+                }}
+              >
+                <Text
+                  style={{
+                    fontFamily: theme.font.fontMedium,
+                    textAlign: "center",
+                  }}
+                >
+                  {item.name}
+                </Text>
+              </TouchableOpacity>
+            );
+          })
+        )}
+      </Animatable.View>
     );
+  };
+
+  const onChange = (e: any) => {
+    const indexValue = subCategoryDetails?.data
+      ?.map((item: any, index: any) => {
+        if (item?.nestedSubCategory?.length > 0) {
+          return index;
+        } else {
+          return "";
+        }
+      })
+      ?.filter((i) => i !== "");
+
+    if (indexValue?.includes(e[0])) {
+      setActiveSections(e);
+    }
   };
 
   return (
@@ -115,18 +126,22 @@ const SubCategoryScreen = ({ data }: any) => {
         <Ionicons name="chevron-back-outline" size={27} color={"#fff"} />
       </View>
       <ScrollView contentContainerStyle={{ paddingTop: 2 }}>
-        <Accordion
-          align="bottom"
-          activeSections={activeSections}
-          sections={subCategoryDetails?.data}
-          // touchableComponent={TouchableOpacity}
-          expandMultiple={multipleSelect}
-          renderHeader={renderHeader}
-          renderContent={renderContent}
-          duration={400}
-          onChange={setSections}
-          renderAsFlatList={false}
-        />
+        {subCategoryDetails?.data?.length > 0 ? (
+          <Accordion
+            align="bottom"
+            activeSections={activeSections}
+            sections={subCategoryDetails?.data}
+            renderHeader={renderHeader}
+            renderContent={renderContent}
+            duration={400}
+            onChange={(e) => {
+              onChange(e);
+            }}
+            // renderAsFlatList={false}
+          />
+        ) : (
+          <></>
+        )}
       </ScrollView>
     </View>
   );
