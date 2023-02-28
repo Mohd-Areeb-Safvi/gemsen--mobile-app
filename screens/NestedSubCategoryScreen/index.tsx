@@ -1,10 +1,22 @@
 import { View, Text, SafeAreaView, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import theme from "../../theme";
+import { getLastCategoryDetails } from "../../store/services/category";
 
 const NestedSubCategoryScreen = ({ route, navigation }: any) => {
   const { data } = route.params;
+  const [lastCategoryData, setLastCategoryData] = useState([]);
+
+  useEffect(() => {
+    getLastCategoryDetails({
+      pathParams: {
+        id: data?._id,
+      },
+    }).then((res: any) => {
+      setLastCategoryData(res?.lastCategoryData);
+    });
+  }, [data?._id]);
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
@@ -25,7 +37,7 @@ const NestedSubCategoryScreen = ({ route, navigation }: any) => {
           <Ionicons name="chevron-back-outline" size={27} />
         </TouchableOpacity>
         <Text style={{ fontFamily: theme.font.fontMedium, fontSize: 20 }}>
-          {data.category}
+          {data.name}
         </Text>
         <Ionicons name="chevron-back-outline" size={27} color={"#fff"} />
       </View>
@@ -36,7 +48,7 @@ const NestedSubCategoryScreen = ({ route, navigation }: any) => {
           justifyContent: "center",
         }}
       >
-        {data.subCategories?.map((item: any, index: any) => {
+        {lastCategoryData?.map((item: any, index: any) => {
           return (
             <TouchableOpacity
               onPress={() => {

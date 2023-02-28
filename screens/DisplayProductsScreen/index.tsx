@@ -6,16 +6,28 @@ import {
   Image,
   ScrollView,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../components/Header";
 import HeaderAfterLogin from "../../components/HeaderAfterLogin";
 import theme from "../../theme";
 import { Ionicons } from "@expo/vector-icons";
 import FooterSection from "../../components/FooterSection";
 import ModalDropdown from "react-native-modal-dropdown";
+import { getProducts } from "../../store/services/product";
 
 const DisplayProductsScreen = ({ route, navigation }: any) => {
   const { data } = route.params;
+  const [getProductsData, setGetProductsData] = useState([]);
+  useEffect(() => {
+    getProducts({
+      pathParams: {
+        id: data?._id,
+      },
+    }).then((res: any) => {
+      setGetProductsData(res?.products);
+    });
+  }, [data?._id]);
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
       <HeaderAfterLogin value={""} icon="menu" />
@@ -101,7 +113,7 @@ const DisplayProductsScreen = ({ route, navigation }: any) => {
             marginTop: 20,
           }}
         >
-          {data.products?.map((item: any) => {
+          {getProductsData?.map((item: any) => {
             return (
               <TouchableOpacity
                 onPress={() => {
@@ -109,7 +121,7 @@ const DisplayProductsScreen = ({ route, navigation }: any) => {
                     data: item,
                   });
                 }}
-                key={item.id}
+                key={item._id}
                 style={{
                   paddingVertical: 10,
                   width: "50%",
@@ -121,7 +133,9 @@ const DisplayProductsScreen = ({ route, navigation }: any) => {
                   <Ionicons name="heart-outline" size={25} />
                 </TouchableOpacity>
                 <Image
-                  source={{ uri: item.productImage[0] }}
+                  source={{
+                    uri: "https://elasticsearch-pwa-m2.magento-demo.amasty.com/media/catalog/product/cache/3119fdc86065b8c295ab10a11e7294fc/v/d/vd01-ll_main_2.jpg?auto=webp&format=pjpg&width=640&height=800&fit=cover",
+                  }}
                   style={{
                     width: "70%",
                     height: 200,
@@ -137,11 +151,11 @@ const DisplayProductsScreen = ({ route, navigation }: any) => {
                   }}
                 >
                   <Text numberOfLines={1} ellipsizeMode="tail">
-                    {item.productName}
+                    Name: {item.name}
                   </Text>
                 </View>
                 <View style={{ width: 130, alignSelf: "center" }}>
-                  <Text>{item.price}</Text>
+                  <Text>Sku :{item.sku}</Text>
                 </View>
               </TouchableOpacity>
             );

@@ -11,3 +11,8 @@ export const getSubCategory = ({ pathParams, body }: any) =>
     pathParams,
     body,
   });
+export const getLastCategoryDetails = ({ pathParams }: any) =>
+  callApi({
+    uriEndPoint: categoryEndPoints.getLastCategoryDetails.v1,
+    pathParams,
+  });

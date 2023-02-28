@@ -57,9 +57,9 @@ const SubCategoryScreen = ({ data }: any) => {
             return (
               <TouchableOpacity
                 onPress={() => {
-                  // navigation.navigate("NestedSubCategoryScreen", {
-                  //   data: item,
-                  // });
+                  navigation.navigate("NestedSubCategoryScreen", {
+                    data: item,
+                  });
                 }}
                 key={item._id}
                 style={{
