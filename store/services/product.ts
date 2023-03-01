@@ -6,3 +6,8 @@ export const getProducts = ({ pathParams }: any) =>
     uriEndPoint: productsEndPoints.getProducts.v1,
     pathParams,
   });
+export const getSingleProducts = ({ pathParams }: any) =>
+  callApi({
+    uriEndPoint: productsEndPoints.getSingleProducts.v1,
+    pathParams,
+  });

@@ -10,15 +10,17 @@ import {
   StyleSheet,
   Button,
 } from "react-native";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import HeaderAfterLogin from "../../components/HeaderAfterLogin";
 import theme from "../../theme";
 import Carousel from "react-native-snap-carousel";
 import { Ionicons } from "@expo/vector-icons";
 import { useAtom } from "jotai";
 import { cart } from "../../stores/user";
+import { getSingleProducts } from "../../store/services/product";
 const DisplayIndividualProductDetails = ({ route }: any) => {
   const { data } = route.params;
+  const [displayProductDetails, setDisplayProductDetails] = useState<any>({});
   const [counter, setCounter] = useState(0);
 
   const [addToCart, setAddToCart] = useAtom(cart);
@@ -72,6 +74,18 @@ const DisplayIndividualProductDetails = ({ route }: any) => {
       marginVertical: 16,
     },
   });
+
+  useEffect(() => {
+    getSingleProducts({
+      pathParams: {
+        id: data?._id,
+      },
+    }).then((res: any) => {
+      setDisplayProductDetails(res?.products);
+    });
+    return () => {};
+  }, [data?._id]);
+
   return (
     <SafeAreaView
       style={{ flex: 1, paddingHorizontal: 20, backgroundColor: "#fff" }}
@@ -113,13 +127,19 @@ const DisplayIndividualProductDetails = ({ route }: any) => {
         <View style={{ marginTop: 20 }}>
           <Text
             style={{
-              fontFamily: theme.font.fontMedium,
               fontSize: 15,
               letterSpacing: 2,
               paddingHorizontal: 20,
             }}
           >
-            {data.productName}
+            ProductName:{" "}
+            <Text
+              style={{
+                fontFamily: theme.font.fontMedium,
+              }}
+            >
+              {displayProductDetails.name}
+            </Text>
           </Text>
           <View style={{ width }}>
             <ScrollView
@@ -132,7 +152,13 @@ const DisplayIndividualProductDetails = ({ route }: any) => {
               )}
               scrollEventThrottle={16}
             >
-              {data.productImage.map((source: any, i: any) => {
+              <Image
+                source={{
+                  uri: "https://elasticsearch-pwa-m2.magento-demo.amasty.com/media/catalog/product/cache/3119fdc86065b8c295ab10a11e7294fc/v/d/vd01-ll_main_2.jpg?auto=webp&format=pjpg&width=640&height=800&fit=cover",
+                }}
+                style={{ width, height: 300, resizeMode: "contain" }}
+              />
+              {/* {data.productImage.map((source: any, i: any) => {
                 return (
                   <Image
                     key={i}
@@ -140,9 +166,9 @@ const DisplayIndividualProductDetails = ({ route }: any) => {
                     source={{ uri: source }}
                   />
                 );
-              })}
+              })} */}
             </ScrollView>
-            <View style={{ flexDirection: "row", alignSelf: "center" }}>
+            {/* <View style={{ flexDirection: "row", alignSelf: "center" }}>
               {data.productImage.map((_: any, index: any) => {
                 let opacity = position.interpolate({
                   inputRange: [index - 1, index, index + 1],
@@ -170,25 +196,9 @@ const DisplayIndividualProductDetails = ({ route }: any) => {
                   />
                 );
               })}
-            </View>
-            {/* <ScrollView horizontal>
-              {data.productImage?.map((item, index) => {
-                return (
-                  <View key={index} style={{}}>
-                    <Image
-                      source={{ uri: item }}
-                      style={{
-                        width: 250,
-                        height: 400,
-                        resizeMode: "cover",
-                        alignSelf: "center",
-                      }}
-                    />
-                  </View>
-                );
-              })}
-            </ScrollView> */}
-            <Text
+            </View> */}
+
+            {/* <Text
               style={{
                 fontFamily: theme.font.fontMedium,
                 fontSize: 18,
@@ -255,6 +265,38 @@ const DisplayIndividualProductDetails = ({ route }: any) => {
                   </View>
                 );
               })}
+            </View> */}
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+                paddingHorizontal: 20,
+                paddingTop: 20,
+              }}
+            >
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <Text
+                  style={{
+                    fontFamily: theme.font.fontMedium,
+                    fontSize: 18,
+                  }}
+                >
+                  Status :
+                </Text>
+                <Text
+                  style={{
+                    fontFamily: theme.font.fontMedium,
+                    fontSize: 18,
+                    color:
+                      displayProductDetails?.inventory > 0 ? "green" : "red",
+                  }}
+                >
+                  {displayProductDetails?.inventory > 0
+                    ? "InStock"
+                    : "OutStock"}
+                </Text>
+              </View>
             </View>
             <View
               style={{
@@ -378,12 +420,6 @@ const DisplayIndividualProductDetails = ({ route }: any) => {
                 </Text>
               </TouchableOpacity>
             </View>
-            {/* <Carousel
-              data={data.productImage}
-              renderItem={_renderItem}
-              sliderWidth={300}
-              itemWidth={3}
-            /> */}
           </View>
           <View
             style={{
@@ -404,7 +440,7 @@ const DisplayIndividualProductDetails = ({ route }: any) => {
                 fontSize: 14,
               }}
             >
-              {data.description}
+              {displayProductDetails?.description}
             </Text>
           </View>
         </View>
