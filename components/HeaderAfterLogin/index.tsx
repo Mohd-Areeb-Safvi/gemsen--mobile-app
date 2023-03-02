@@ -1,10 +1,11 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import theme from "../../theme";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { useAtom } from "jotai";
 import { cart } from "../../stores/user";
+import { getCart } from "../../store/services/cart";
 
 const HeaderAfterLogin = ({ value, center, icon }: any) => {
   const navigation: any = useNavigation();

@@ -10,11 +10,12 @@ import theme from "../../../theme";
 
 import axios from "axios";
 import { useAtom } from "jotai";
-import { user } from "../../../stores/user";
+import { cart, user } from "../../../stores/user";
 import Navigation from "../../../navigation";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { userLogin } from "../../../store/services/auth";
 import { getCategory } from "../../../store/services/category";
+import { getCart } from "../../../store/services/cart";
 
 const LoginScreen = ({ navigation }: any) => {
   const [data, setData] = useAtom(user);
@@ -24,6 +25,8 @@ const LoginScreen = ({ navigation }: any) => {
   const [name, setName] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [addToCart, setAddToCart] = useAtom(cart);
+
   const login = async () => {
     if (!!name === false || !!email === false || !!password === false) {
       setError("Please enter the details");
@@ -39,6 +42,11 @@ const LoginScreen = ({ navigation }: any) => {
           console.log("res", res);
           setData(res?.data?.data);
           await AsyncStorage.setItem("accessToken", res?.accessToken);
+
+          getCart().then((res: any) => {
+            setAddToCart(res?.cartDetails);
+          });
+
           setTimeout(() => {
             navigation.navigate("Root");
           }, 1200);

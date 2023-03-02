@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import React, { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAtom } from "jotai";
-import { user } from "../../stores/user";
+import { cart, user } from "../../stores/user";
 import { Ionicons } from "@expo/vector-icons";
 import theme from "../../theme";
 import { DrawerActions, useNavigation } from "@react-navigation/native";
@@ -11,7 +11,7 @@ import { getCategory } from "../../store/services/category";
 
 const DrawerScreen = () => {
   const [userData, setUserData] = useAtom(user);
-
+  const [addToCart, setAddToCart] = useAtom(cart);
   const navigation: any = useNavigation();
   const [categoryDetails, setCategoryDetails] = useState([]);
 
@@ -104,6 +104,7 @@ const DrawerScreen = () => {
             onPress={async () => {
               await AsyncStorage.clear();
               setUserData({});
+              setAddToCart([]);
             }}
             style={{
               borderBottomWidth: 1,

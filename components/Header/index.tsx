@@ -1,7 +1,8 @@
 import { View, Text, Image } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import theme from "../../theme";
 import { Ionicons } from "@expo/vector-icons";
+import { getCart } from "../../store/services/cart";
 
 const Header = ({ value, center }: any) => {
   return (

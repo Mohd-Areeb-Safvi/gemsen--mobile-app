@@ -18,21 +18,14 @@ import { Ionicons } from "@expo/vector-icons";
 import { useAtom } from "jotai";
 import { cart } from "../../stores/user";
 import { getSingleProducts } from "../../store/services/product";
+import { addToCartDetails } from "../../store/services/cart";
+import { getCart } from "../../store/services/cart";
 const DisplayIndividualProductDetails = ({ route }: any) => {
   const { data } = route.params;
   const [displayProductDetails, setDisplayProductDetails] = useState<any>({});
   const [counter, setCounter] = useState(0);
-
   const [addToCart, setAddToCart] = useAtom(cart);
-
-  // const a = { c: 1 };
-  // const b = 2;
-  // const d = [4];
-  // const c = [a, b, ...d];
   const { width, height } = Dimensions.get("screen");
-
-  const arrayofIds = addToCart?.map((i: any) => i?.data?.productName);
-  const alreadyExisted = arrayofIds?.includes(data.productName);
 
   const scrollX = new Animated.Value(0);
   const scrollX1 = new Animated.Value(0);
@@ -85,6 +78,24 @@ const DisplayIndividualProductDetails = ({ route }: any) => {
     });
     return () => {};
   }, [data?._id]);
+
+  const addToCartData = () => {
+    addToCartDetails({
+      body: {
+        productId: displayProductDetails?._id,
+        quantity: counter,
+      },
+    }).then((res: any) => {
+      setAddToCart([...addToCart, res.cart]);
+    });
+  };
+
+  // const array = [1, 2, 3];
+  // const array2 = [1, 2, 3, 4];
+
+  // const object = { a: 1 };
+  // const array3 = [...array, ...array2, object];
+  // console.log(array3);
 
   return (
     <SafeAreaView
@@ -387,20 +398,9 @@ const DisplayIndividualProductDetails = ({ route }: any) => {
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
-                  // setAddToCart((prev) => [...prev, data]);
-
-                  if (counter > 0) {
-                    setAddToCart([
-                      ...addToCart,
-                      {
-                        quantity: counter,
-                        data,
-                      },
-                    ]);
-                  }
+                  addToCartData();
                 }}
                 style={{
-                  // borderWidth: 2,
                   width: "80%",
                   justifyContent: "center",
                   alignItems: "center",
@@ -416,7 +416,7 @@ const DisplayIndividualProductDetails = ({ route }: any) => {
                     color: "#fff",
                   }}
                 >
-                  {alreadyExisted ? "Go to cart" : "Add to cart"}
+                  Add To Cart
                 </Text>
               </TouchableOpacity>
             </View>

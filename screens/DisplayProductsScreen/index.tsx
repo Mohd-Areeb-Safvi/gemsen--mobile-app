@@ -117,7 +117,6 @@ const DisplayProductsScreen = ({ route, navigation }: any) => {
             return (
               <TouchableOpacity
                 onPress={() => {
-                  console.log("item", item);
                   navigation.navigate("DisplayIndividualProductDetails", {
                     data: item,
                   });
