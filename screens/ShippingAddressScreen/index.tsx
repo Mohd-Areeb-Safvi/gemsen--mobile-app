@@ -22,7 +22,7 @@ const ShippingAddressScreen = ({ navigation }: any) => {
   const [addressData, setAddressData] = useAtom(addressListJotai);
   const [addToCart, setAddToCart] = useAtom(cart);
   const totalPrice = addToCart?.reduce((prev: any, curr: any) => {
-    return prev + curr.quantity * curr.data.price;
+    return prev + curr.quantity * curr.price;
   }, 0);
   const methods = [
     {

@@ -27,7 +27,7 @@ const AddToCartScreen = ({ navigation }: any) => {
   }, []);
 
   const totalPrice = addToCart?.reduce((prev: any, curr: any) => {
-    return prev + curr.quantity * curr.data.price;
+    return prev + curr.quantity * curr.price;
   }, 0);
   const data = async () => {
     await AsyncStorage.setItem(
@@ -52,7 +52,7 @@ const AddToCartScreen = ({ navigation }: any) => {
         >
           Shopping Cart
         </Text>
-        {counter?.map((addToCartItem: any) => {
+        {/* {counter?.map((addToCartItem: any) => {
           console.log(addToCartItem);
           return (
             <View
@@ -338,7 +338,7 @@ const AddToCartScreen = ({ navigation }: any) => {
               <Text>to continue shopping.</Text>
             </View>
           </>
-        )}
+        )} */}
       </KeyboardAwareScrollView>
     </SafeAreaView>
   );

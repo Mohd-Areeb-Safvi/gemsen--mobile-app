@@ -20,7 +20,7 @@ import { cart } from "../../stores/user";
 import { getSingleProducts } from "../../store/services/product";
 import { addToCartDetails } from "../../store/services/cart";
 import { getCart } from "../../store/services/cart";
-const DisplayIndividualProductDetails = ({ route }: any) => {
+const DisplayIndividualProductDetails = ({ route, navigation }: any) => {
   const { data } = route.params;
   const [displayProductDetails, setDisplayProductDetails] = useState<any>({});
   const [counter, setCounter] = useState(0);
@@ -86,9 +86,20 @@ const DisplayIndividualProductDetails = ({ route }: any) => {
         quantity: counter,
       },
     }).then((res: any) => {
-      setAddToCart([...addToCart, res.cart]);
+      console.log(res.cart, "res");
+
+      const cartData = [...addToCart, res.cart];
+
+      // setAddToCart((prev: any) => [...prev, res.cart]);
+      setAddToCart(cartData);
     });
   };
+
+  // const b = [{ id: 1 }];
+
+  // const a = [...b, { id: 4 }];
+
+  // console.log("a", a);
 
   // const array = [1, 2, 3];
   // const array2 = [1, 2, 3, 4];
@@ -96,6 +107,9 @@ const DisplayIndividualProductDetails = ({ route }: any) => {
   // const object = { a: 1 };
   // const array3 = [...array, ...array2, object];
   // console.log(array3);
+  const cartData = addToCart?.map((i) => i?.productId);
+
+  const isIncluded = cartData?.includes(displayProductDetails?._id);
 
   return (
     <SafeAreaView
@@ -336,7 +350,9 @@ const DisplayIndividualProductDetails = ({ route }: any) => {
                 >
                   <TouchableOpacity
                     onPress={() => {
-                      if (counter > 0) setCounter(counter - 1);
+                      if (counter > 0) {
+                        setCounter(counter - 1);
+                      }
                     }}
                     style={{
                       borderWidth: 2,
@@ -398,7 +414,15 @@ const DisplayIndividualProductDetails = ({ route }: any) => {
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
-                  addToCartData();
+                  if (!isIncluded) {
+                    if (counter > 0) {
+                      addToCartData();
+                    } else {
+                      alert("Please select quantity");
+                    }
+                  } else {
+                    navigation.navigate("AddToCartScreen");
+                  }
                 }}
                 style={{
                   width: "80%",
@@ -416,7 +440,7 @@ const DisplayIndividualProductDetails = ({ route }: any) => {
                     color: "#fff",
                   }}
                 >
-                  Add To Cart
+                  {isIncluded ? "Go to cart" : "Add To Cart"}
                 </Text>
               </TouchableOpacity>
             </View>

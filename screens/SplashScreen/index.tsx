@@ -12,9 +12,10 @@ const SplashScreen = ({ navigation }: any) => {
 
   useEffect(() => {
     getCart().then((res: any) => {
-      setAddToCart(res?.cartDetails);
+      setAddToCart(res?.cartDetails || []);
     });
   }, []);
+
   useEffect(() => {
     // AsyncStorage.clear();
     currentUser()

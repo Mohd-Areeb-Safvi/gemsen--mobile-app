@@ -31,7 +31,7 @@ const ReviewOrderScreen = ({ navigation }: any) => {
 
   console.log(shippingMethods);
   const totalPrice = addToCart?.reduce((prev: any, curr: any) => {
-    return prev + curr.quantity * curr.data.price;
+    return prev + curr.quantity * curr.price;
   }, 0);
   const data = [
     {
@@ -79,7 +79,7 @@ const ReviewOrderScreen = ({ navigation }: any) => {
                       marginRight: 5,
                     }}
                   >
-                    {addToCart?.length}
+                    {/* {addToCart?.length} */}
                   </Text>
                   <Text
                     style={{ fontFamily: theme.font.fontLight, fontSize: 17 }}
@@ -89,7 +89,7 @@ const ReviewOrderScreen = ({ navigation }: any) => {
                 </View>
               }
             >
-              {addToCart?.map((item: any, index) => {
+              {/* {addToCart?.map((item: any, index) => {
                 return (
                   <View
                     key={item.data.id}
@@ -138,7 +138,7 @@ const ReviewOrderScreen = ({ navigation }: any) => {
                     </View>
                   </View>
                 );
-              })}
+              })} */}
             </List.Accordion>
           </List.Section>
         </View>

@@ -40,7 +40,7 @@ const DisplayProductsScreen = ({ route, navigation }: any) => {
             marginTop: 20,
           }}
         >
-          {data.name}
+          {/* {data.name} */}
         </Text>
         <Text
           style={{
@@ -50,7 +50,7 @@ const DisplayProductsScreen = ({ route, navigation }: any) => {
             marginTop: 20,
           }}
         >
-          {data.products?.length} Results
+          {/* {data.products?.length} Results */}
         </Text>
 
         <View
