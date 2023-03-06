@@ -98,6 +98,8 @@ function DrawerScreen() {
         },
         drawerType: "back",
         drawerStatusBarAnimation: "slide",
+        // swipeEnabled: false,
+        // swipeEdgeWidth: 300,
         // overlayColor: "rgba(0,0,0,1)",
       }}
       drawerContent={CustomDrawer}
