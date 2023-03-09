@@ -39,6 +39,8 @@ const AddToCartScreen = ({ navigation }: any) => {
   useEffect(() => {
     data();
   }, []);
+
+  console.log("addToCart", addToCart);
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
       <HeaderAfterLogin icon="menu" />
@@ -52,11 +54,11 @@ const AddToCartScreen = ({ navigation }: any) => {
         >
           Shopping Cart
         </Text>
-        {/* {counter?.map((addToCartItem: any) => {
-          console.log(addToCartItem);
+
+        {addToCart?.map((item) => {
           return (
             <View
-              key={addToCartItem.data.id}
+              key={item?._id}
               style={{
                 flexDirection: "row",
                 justifyContent: "space-around",
@@ -66,7 +68,9 @@ const AddToCartScreen = ({ navigation }: any) => {
             >
               <View style={{}}>
                 <Image
-                  source={{ uri: addToCartItem?.data?.productImage[0] }}
+                  source={{
+                    uri: "https://elasticsearch-pwa-m2.magento-demo.amasty.com/media/catalog/product/cache/3119fdc86065b8c295ab10a11e7294fc/v/d/vd01-ll_main_2.jpg?auto=webp&format=pjpg&width=640&height=800&fit=cover",
+                  }}
                   style={{
                     width: 100,
                     height: 150,
@@ -83,7 +87,7 @@ const AddToCartScreen = ({ navigation }: any) => {
                     fontSize: 13,
                   }}
                 >
-                  {addToCartItem.data.productName}
+                  {item?.productDetails?.name}
                 </Text>
                 <Text
                   style={{
@@ -91,7 +95,7 @@ const AddToCartScreen = ({ navigation }: any) => {
                     fontSize: 18,
                   }}
                 >
-                  ${addToCartItem.data.price}
+                  ${item?.productDetails?.price}
                 </Text>
                 <View
                   style={{
@@ -100,24 +104,6 @@ const AddToCartScreen = ({ navigation }: any) => {
                   }}
                 >
                   <TouchableOpacity
-                    onPress={() => {
-                      const data: any = counter?.map((counterItem: any) => {
-                        if (
-                          counterItem.data.id === addToCartItem.data.id &&
-                          counterItem?.quantity > 0
-                        ) {
-                          return {
-                            ...counterItem,
-                            quantity: counterItem.quantity - 1,
-                          };
-                        } else {
-                          return counterItem;
-                        }
-                      });
-
-                      setCounter(data);
-                      setAddToCart(data);
-                    }}
                     style={{
                       borderWidth: 0.2,
                       borderColor: "#545d63",
@@ -134,23 +120,23 @@ const AddToCartScreen = ({ navigation }: any) => {
                       padding: 10,
                     }}
                   >
-                    {addToCartItem.quantity}
+                    {item?.quantity}
                   </Text>
                   <TouchableOpacity
                     onPress={() => {
-                      const data: any = counter?.map((counterItem: any) => {
-                        if (counterItem.data.id === addToCartItem.data.id) {
+                      console.log(item?._id);
+
+                      const updatedQuantity = addToCart?.map((i) => {
+                        if (i?._id === item?._id) {
                           return {
-                            ...counterItem,
-                            quantity: counterItem.quantity + 1,
+                            ...i,
+                            quantity: item.quantity + 1,
                           };
-                        } else {
-                          return counterItem;
                         }
+                        return i;
                       });
 
-                      setCounter(data);
-                      setAddToCart(data);
+                      setAddToCart(updatedQuantity);
                     }}
                     style={{
                       borderWidth: 0.2,
@@ -166,14 +152,14 @@ const AddToCartScreen = ({ navigation }: any) => {
               <View style={{}}>
                 <TouchableOpacity
                   style={{ alignSelf: "flex-end" }}
-                  onPress={() => {
-                    const deletedData = counter?.filter(
-                      (item: any) => item.data.id !== addToCartItem?.data?.id
-                    );
-                    console.log(deletedData);
-                    setCounter(deletedData);
-                    setAddToCart(deletedData);
-                  }}
+                  // onPress={() => {
+                  //   const deletedData = counter?.filter(
+                  //     (item: any) => item.data.id !== addToCartItem?.data?.id
+                  //   );
+                  //   console.log(deletedData);
+                  //   setCounter(deletedData);
+                  //   setAddToCart(deletedData);
+                  // }}
                 >
                   <Ionicons name="trash-outline" size={20} color="red" />
                 </TouchableOpacity>
@@ -338,7 +324,7 @@ const AddToCartScreen = ({ navigation }: any) => {
               <Text>to continue shopping.</Text>
             </View>
           </>
-        )} */}
+        )}
       </KeyboardAwareScrollView>
     </SafeAreaView>
   );
