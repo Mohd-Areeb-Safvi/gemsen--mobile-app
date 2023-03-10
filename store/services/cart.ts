@@ -10,3 +10,8 @@ export const getCart = () =>
   callApi({
     uriEndPoint: cartEndPoints.getCart.v1,
   });
+export const deleteCart = ({ pathParams }: any) =>
+  callApi({
+    uriEndPoint: cartEndPoints.deleteCart.v1,
+    pathParams,
+  });

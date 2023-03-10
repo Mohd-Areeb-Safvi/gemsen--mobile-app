@@ -5,6 +5,7 @@ import {
   Image,
   TouchableOpacity,
   TextInput,
+  Alert,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import HeaderAfterLogin from "../../components/HeaderAfterLogin";
@@ -15,19 +16,15 @@ import { Ionicons } from "@expo/vector-icons";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import SplashScreen from "../SplashScreen";
+import { deleteCart, getCart } from "../../store/services/cart";
 
 const AddToCartScreen = ({ navigation }: any) => {
   const [addToCart, setAddToCart] = useAtom(cart);
-  const [counter, setCounter] = useAtom(counterValueJotai);
   const [coupleData, setCoupleData] = useState("");
   const [userData, setUserData] = useAtom(user);
-  useEffect(() => {
-    setCounter(addToCart);
-    return () => {};
-  }, []);
 
   const totalPrice = addToCart?.reduce((prev: any, curr: any) => {
-    return prev + curr.quantity * curr.price;
+    return prev + curr.quantity * curr.productDetails?.price;
   }, 0);
   const data = async () => {
     await AsyncStorage.setItem(
@@ -40,7 +37,6 @@ const AddToCartScreen = ({ navigation }: any) => {
     data();
   }, []);
 
-  console.log("addToCart", addToCart);
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
       <HeaderAfterLogin icon="menu" />
@@ -104,6 +100,22 @@ const AddToCartScreen = ({ navigation }: any) => {
                   }}
                 >
                   <TouchableOpacity
+                    onPress={() => {
+                      console.log(item?._id);
+                      const updatedQuantity = addToCart?.map((i) => {
+                        if (i?._id === item?._id) {
+                          if (item.quantity - 1 > 0) {
+                            return {
+                              ...i,
+                              quantity: i.quantity - 1,
+                            };
+                          }
+                          return i;
+                        }
+                        return i;
+                      });
+                      setAddToCart(updatedQuantity);
+                    }}
                     style={{
                       borderWidth: 0.2,
                       borderColor: "#545d63",
@@ -124,18 +136,15 @@ const AddToCartScreen = ({ navigation }: any) => {
                   </Text>
                   <TouchableOpacity
                     onPress={() => {
-                      console.log(item?._id);
-
                       const updatedQuantity = addToCart?.map((i) => {
                         if (i?._id === item?._id) {
                           return {
                             ...i,
-                            quantity: item.quantity + 1,
+                            quantity: i.quantity + 1,
                           };
                         }
                         return i;
                       });
-
                       setAddToCart(updatedQuantity);
                     }}
                     style={{
@@ -151,6 +160,33 @@ const AddToCartScreen = ({ navigation }: any) => {
               </View>
               <View style={{}}>
                 <TouchableOpacity
+                  onPress={() => {
+                    Alert.alert(
+                      "",
+                      "Are you sure you want delete this product from cart",
+                      [
+                        {
+                          text: "Cancel",
+                          onPress: () => console.log("Cancel Pressed"),
+                          style: "cancel",
+                        },
+                        {
+                          text: "OK",
+                          onPress: () => {
+                            deleteCart({
+                              pathParams: {
+                                id: item?._id,
+                              },
+                            }).then(() => {
+                              getCart().then((res: any) => {
+                                setAddToCart(res?.cartDetails || []);
+                              });
+                            });
+                          },
+                        },
+                      ]
+                    );
+                  }}
                   style={{ alignSelf: "flex-end" }}
                   // onPress={() => {
                   //   const deletedData = counter?.filter(

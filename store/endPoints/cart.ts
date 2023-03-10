@@ -15,4 +15,11 @@ export const cartEndPoints = {
       uri: "/cart",
     },
   },
+  deleteCart: {
+    v1: {
+      ...defaults.methods.DELETE,
+      ...defaults.versions.v1,
+      uri: "/cart/:id",
+    },
+  },
 };
