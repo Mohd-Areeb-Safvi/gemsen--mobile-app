@@ -22,6 +22,9 @@ const DisplayProductsScreen = ({ route, navigation }: any) => {
   const [getProductsData, setGetProductsData] = useState([]);
   const [expanded, setExpanded] = React.useState(true);
   const [getSeriesId, setGetSeriesId] = useState<any>([]);
+  const [amplifierPowerState, setAmplifierPowerState] = useState<any>([]);
+
+  const [channelId, setChannelId] = useState<any>([]);
   const [modal, setModal] = useState(false);
   useEffect(() => {
     getProducts({
@@ -33,10 +36,12 @@ const DisplayProductsScreen = ({ route, navigation }: any) => {
     });
   }, [data?._id]);
   const series = [...new Set(getProductsData?.map((i: any) => i.series))];
-  const channels = getProductsData?.map((i: any) => i.channels);
-  const amplifierPower = getProductsData?.map((i: any) => i.amplifierPower);
+  const channels = [...new Set(getProductsData?.map((i: any) => i.channels))];
+  const amplifierPower = [
+    ...new Set(getProductsData?.map((i: any) => i.amplifierPower)),
+  ];
   const handlePress = () => setExpanded(!expanded);
-  console.log("getSeriesId", getSeriesId);
+  console.log("getSeriesId", getSeriesId, channelId, amplifierPowerState);
   return (
     <SafeAreaView
       style={{
@@ -66,15 +71,10 @@ const DisplayProductsScreen = ({ route, navigation }: any) => {
               borderRadius: 5,
             }}
           >
-            <List.Section
-              title={
-                <Text
-                  style={{ fontSize: 20, fontFamily: theme.font.fontMedium }}
-                >
-                  Filter
-                </Text>
-              }
-            >
+            <Text style={{ fontSize: 20, fontFamily: theme.font.fontMedium }}>
+              Filter
+            </Text>
+            <List.Section>
               <List.Accordion
                 title="Series"
                 // left={(props) => <List.Icon {...props} icon="folder" />}
@@ -87,7 +87,7 @@ const DisplayProductsScreen = ({ route, navigation }: any) => {
                         if (!getSeriesId?.includes(item)) {
                           setGetSeriesId([...getSeriesId, item]);
                         } else {
-                          const data = [getSeriesId]?.filter((i) => i !== item);
+                          const data = getSeriesId?.filter((i) => i !== item);
                           setGetSeriesId(data);
                         }
                       }}
@@ -120,12 +120,111 @@ const DisplayProductsScreen = ({ route, navigation }: any) => {
                 })}
               </List.Accordion>
             </List.Section>
+            <List.Section>
+              <List.Accordion
+                title="Channels"
+                // left={(props) => <List.Icon {...props} icon="folder" />}
+              >
+                {channels?.map((item: any) => {
+                  return (
+                    <TouchableOpacity
+                      key={item}
+                      onPress={() => {
+                        if (!channelId?.includes(item)) {
+                          setChannelId([...channelId, item]);
+                        } else {
+                          const data = channelId?.filter((i) => i !== item);
+                          setChannelId(data);
+                        }
+                      }}
+                      style={{
+                        marginLeft: 20,
+                        marginVertical: 10,
+                        flexDirection: "row",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Ionicons
+                        name={
+                          channelId?.includes(item)
+                            ? "square"
+                            : "square-outline"
+                        }
+                        size={20}
+                      />
+                      <Text
+                        style={{
+                          fontSize: 14,
+                          fontFamily: theme.font.fontMedium,
+                          marginLeft: 10,
+                        }}
+                      >
+                        {item}
+                      </Text>
+                    </TouchableOpacity>
+                  );
+                })}
+              </List.Accordion>
+            </List.Section>
+            <List.Section>
+              <List.Accordion
+                title="Amplifiers"
+                // left={(props) => <List.Icon {...props} icon="folder" />}
+              >
+                {amplifierPower?.map((item: any, index: any) => {
+                  return (
+                    <TouchableOpacity
+                      key={index}
+                      onPress={() => {
+                        if (!amplifierPowerState?.includes(item)) {
+                          setAmplifierPowerState([
+                            ...amplifierPowerState,
+                            item,
+                          ]);
+                        } else {
+                          const data = amplifierPowerState?.filter(
+                            (i) => i !== item
+                          );
+                          setAmplifierPowerState(data);
+                        }
+                      }}
+                      style={{
+                        marginLeft: 20,
+                        marginVertical: 10,
+                        flexDirection: "row",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Ionicons
+                        name={
+                          amplifierPowerState?.includes(item)
+                            ? "square"
+                            : "square-outline"
+                        }
+                        size={20}
+                      />
+                      <Text
+                        style={{
+                          fontSize: 14,
+                          fontFamily: theme.font.fontMedium,
+                          marginLeft: 10,
+                        }}
+                      >
+                        {item}
+                      </Text>
+                    </TouchableOpacity>
+                  );
+                })}
+              </List.Accordion>
+            </List.Section>
 
             <TouchableOpacity
               style={{ alignSelf: "flex-end", marginTop: 20 }}
               onPress={() => {
                 setModal(false);
                 setGetSeriesId([]);
+                setAmplifierPowerState([]);
+                setChannelId([]);
               }}
             >
               <Text>Cancel</Text>
@@ -227,10 +326,18 @@ const DisplayProductsScreen = ({ route, navigation }: any) => {
             marginTop: 20,
           }}
         >
-          {getSeriesId?.length > 0 ? (
+          {getSeriesId?.length > 0 ||
+          channelId?.length > 0 ||
+          amplifierPowerState?.length > 0 ? (
             <>
               {getProductsData
-                ?.filter((i: any) => getSeriesId?.includes(i.series))
+                ?.filter((i: any) => {
+                  return (
+                    getSeriesId?.includes(i?.series) ||
+                    channelId?.includes(i?.channels) ||
+                    amplifierPowerState?.includes(i?.amplifierPower)
+                  );
+                })
                 ?.map((item: any) => {
                   return (
                     <TouchableOpacity
@@ -246,6 +353,7 @@ const DisplayProductsScreen = ({ route, navigation }: any) => {
                       }}
                     >
                       <TouchableOpacity
+                        onPress={() => {}}
                         style={{ position: "absolute", right: 20, zIndex: 10 }}
                       >
                         <Ionicons name="heart-outline" size={25} />
@@ -275,6 +383,8 @@ const DisplayProductsScreen = ({ route, navigation }: any) => {
                       <View style={{ width: 130, alignSelf: "center" }}>
                         <Text>Sku :{item.sku}</Text>
                         <Text>Sku :{item.series}</Text>
+                        <Text>Sku :{item.channels}</Text>
+                        <Text>Sku :{item.amplifierPower}</Text>
                       </View>
                     </TouchableOpacity>
                   );
@@ -326,6 +436,8 @@ const DisplayProductsScreen = ({ route, navigation }: any) => {
                     <View style={{ width: 130, alignSelf: "center" }}>
                       <Text>Sku :{item.sku}</Text>
                       <Text>Sku :{item.series}</Text>
+                      <Text>Sku :{item.channels}</Text>
+                      <Text>Sku :{item.price}</Text>
                     </View>
                   </TouchableOpacity>
                 );
