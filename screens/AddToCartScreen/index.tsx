@@ -215,46 +215,6 @@ const AddToCartScreen = ({ navigation }: any) => {
                 flexDirection: "row",
                 alignItems: "center",
                 justifyContent: "space-between",
-                marginVertical: 20,
-                borderWidth: 1,
-                borderColor: theme.colors.primary,
-                borderRadius: 10,
-                paddingVertical: 10,
-                paddingHorizontal: 20,
-              }}
-            >
-              <TextInput
-                onChangeText={(e) => {
-                  setCoupleData(e);
-                }}
-                placeholder="Enter Coupon code"
-                placeholderTextColor={theme.colors.primary}
-                style={{ fontFamily: theme.font.fontMedium }}
-              />
-              <TouchableOpacity
-                style={{
-                  paddingVertical: 5,
-                  paddingHorizontal: 10,
-                  backgroundColor: theme.colors.primary,
-                  borderRadius: 10,
-                }}
-              >
-                <Text
-                  style={{
-                    fontFamily: theme.font.fontMedium,
-                    fontSize: 18,
-                    color: "#fff",
-                  }}
-                >
-                  Apply
-                </Text>
-              </TouchableOpacity>
-            </View>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-between",
               }}
             >
               <Text

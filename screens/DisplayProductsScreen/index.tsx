@@ -23,31 +23,40 @@ const DisplayProductsScreen = ({ route, navigation }: any) => {
   const [expanded, setExpanded] = React.useState(true);
   const [getSeriesId, setGetSeriesId] = useState<any>([]);
   const [amplifierPowerState, setAmplifierPowerState] = useState<any>([]);
-
+  const [sortModel, setSortModel] = useState(false);
   const [channelId, setChannelId] = useState<any>([]);
+
+  const [selectSortType, setSelectSortType] = useState("");
   const [modal, setModal] = useState(false);
+
   useEffect(() => {
     getProducts({
       pathParams: {
         id: data?._id,
       },
+      query: {
+        type: selectSortType === "Highest to Low" ? -1 : 1,
+      },
     }).then((res: any) => {
       setGetProductsData(res?.products);
     });
-  }, [data?._id]);
+  }, [data?._id, selectSortType]);
+
   const series = [...new Set(getProductsData?.map((i: any) => i.series))];
   const channels = [...new Set(getProductsData?.map((i: any) => i.channels))];
   const amplifierPower = [
     ...new Set(getProductsData?.map((i: any) => i.amplifierPower)),
   ];
   const handlePress = () => setExpanded(!expanded);
-  console.log("getSeriesId", getSeriesId, channelId, amplifierPowerState);
+  const sortData = ["Highest to Low", "Low to high"];
+  console.log(selectSortType);
+
   return (
     <SafeAreaView
       style={{
         flex: 1,
         backgroundColor: "#fff",
-        opacity: modal === true ? 0.2 : 1,
+        opacity: modal || sortModel === true ? 0.2 : 1,
       }}
     >
       <Modal visible={modal} transparent>
@@ -240,6 +249,65 @@ const DisplayProductsScreen = ({ route, navigation }: any) => {
           </View>
         </View>
       </Modal>
+
+      <Modal visible={sortModel} transparent>
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
+          <View
+            style={{
+              width: "90%",
+              padding: 20,
+              backgroundColor: "#fff",
+              shadowColor: "#000",
+              shadowOffset: {
+                width: 0,
+                height: 2,
+              },
+              shadowOpacity: 0.25,
+              shadowRadius: 3.84,
+
+              elevation: 5,
+              borderRadius: 5,
+            }}
+          >
+            <Text style={{ fontSize: 20, fontFamily: theme.font.fontMedium }}>
+              Sort
+            </Text>
+            {sortData?.map((item) => {
+              return (
+                <TouchableOpacity
+                  key={item}
+                  onPress={() => {
+                    setSortModel(false);
+                    setSelectSortType(item);
+                  }}
+                  style={{
+                    marginLeft: 20,
+                    marginVertical: 10,
+                    flexDirection: "row",
+                    alignItems: "center",
+                  }}
+                >
+                  <Ionicons
+                    name={selectSortType === item ? "square" : "square-outline"}
+                    size={20}
+                  />
+                  <Text
+                    style={{
+                      fontSize: 14,
+                      fontFamily: theme.font.fontMedium,
+                      marginLeft: 10,
+                    }}
+                  >
+                    {item}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+        </View>
+      </Modal>
       <HeaderAfterLogin value={""} icon="menu" />
       <ScrollView>
         <Text
@@ -297,6 +365,9 @@ const DisplayProductsScreen = ({ route, navigation }: any) => {
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
+            onPress={() => {
+              setSortModel(true);
+            }}
             style={{
               borderWidth: 2,
               borderColor: "#545d63",

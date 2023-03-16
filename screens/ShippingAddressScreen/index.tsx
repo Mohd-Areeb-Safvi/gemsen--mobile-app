@@ -22,7 +22,7 @@ const ShippingAddressScreen = ({ navigation }: any) => {
   const [addressData, setAddressData] = useAtom(addressListJotai);
   const [addToCart, setAddToCart] = useAtom(cart);
   const totalPrice = addToCart?.reduce((prev: any, curr: any) => {
-    return prev + curr.quantity * curr.price;
+    return prev + curr.quantity * curr.productDetails?.price;
   }, 0);
   const methods = [
     {
@@ -81,17 +81,26 @@ const ShippingAddressScreen = ({ navigation }: any) => {
               ${totalPrice}
             </Text>
           </View>
-          <Text
+          <View
             style={{
-              fontFamily: theme.font.fontMedium,
-              fontSize: 19,
-              marginTop: 20,
-              paddingHorizontal: 20,
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+              marginHorizontal: 20,
             }}
           >
-            Shipping Address
-          </Text>
-
+            <Text
+              style={{
+                fontFamily: theme.font.fontMedium,
+                fontSize: 19,
+              }}
+            >
+              Shipping Address
+            </Text>
+            <TouchableOpacity>
+              <Text>Add Address</Text>
+            </TouchableOpacity>
+          </View>
           <View
             style={{
               // width: "90%",
