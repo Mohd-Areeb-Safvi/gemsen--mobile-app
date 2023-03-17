@@ -40,7 +40,7 @@ const ShippingAddressScreen = ({ navigation }: any) => {
         address: street,
       },
     }).then((res: any) => {
-      setGetShippingAddressData(res?.products);
+      setGetShippingAddressData(res?.address);
     });
   });
 
