@@ -4,12 +4,14 @@ import {
   SafeAreaView,
   ScrollView,
   TouchableOpacity,
+  TextInput,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import HeaderAfterLogin from "../../components/HeaderAfterLogin";
 import FooterSection from "../../components/FooterSection";
 import theme from "../../theme";
 import { Ionicons } from "@expo/vector-icons";
+import { shippingAddress } from "../../store/services/address";
 import {
   addressListJotai,
   cart,
@@ -19,11 +21,42 @@ import { useAtom } from "jotai";
 
 const ShippingAddressScreen = ({ navigation }: any) => {
   const [shippingMethods, setShippingMethods] = useAtom(shippingMethodsJotai);
+  const [street, setStreet] = useState("");
+  const [city, setCity] = useState("");
+  const [pin, setPin] = useState("");
+  const [error, setError] = useState("");
+
+  const [getAddressData, setGetAddressData] = useState([]);
+  const [getShippingAddressData, setGetShippingAddressData] = useState([]);
   const [addressData, setAddressData] = useAtom(addressListJotai);
   const [addToCart, setAddToCart] = useAtom(cart);
+  const [modal, setModal] = useState(false);
   const totalPrice = addToCart?.reduce((prev: any, curr: any) => {
     return prev + curr.quantity * curr.productDetails?.price;
   }, 0);
+  useEffect(() => {
+    shippingAddress({
+      body: {
+        address: street,
+      },
+    }).then((res: any) => {
+      setGetShippingAddressData(res?.products);
+    });
+  });
+
+  const address = async () => {
+    if (!!street === false || !!city === false || !!pin === false) {
+      setError("Please enter the details");
+    } else if (street && city && pin) {
+      shippingAddress({
+        body: {
+          address: street,
+          city: city,
+          zipCode: pin,
+        },
+      });
+    }
+  };
   const methods = [
     {
       id: 1,
@@ -97,7 +130,11 @@ const ShippingAddressScreen = ({ navigation }: any) => {
             >
               Shipping Address
             </Text>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                setModal(true);
+              }}
+            >
               <Text>Add Address</Text>
             </TouchableOpacity>
           </View>
