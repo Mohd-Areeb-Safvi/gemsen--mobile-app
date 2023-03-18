@@ -7,7 +7,7 @@ import Axios from "axios";
 import queryString from "querystring";
 export const hostname = () => {
   // let hostUrl = "http://192.168.10.103:5003/api";
-  let hostUrl = "http://10.0.0.10:5005/api";
+  let hostUrl = "http://localhost:5005/api";
   return hostUrl;
 };
 const hostUrl = hostname();

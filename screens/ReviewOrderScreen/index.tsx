@@ -29,7 +29,7 @@ const ReviewOrderScreen = ({ navigation }: any) => {
   const [shippingMethods] = useAtom(shippingMethodsJotai);
   const [counter, setCounter] = useAtom(counterValueJotai);
 
-  console.log(shippingMethods);
+  console.log(addressData);
   const totalPrice = addToCart?.reduce((prev: any, curr: any) => {
     return prev + curr.quantity * curr.price;
   }, 0);
@@ -194,7 +194,7 @@ const ReviewOrderScreen = ({ navigation }: any) => {
                 fontSize: 18,
               }}
             >
-              Ship to
+              {addressData?.type} address
             </Text>
             <TouchableOpacity
               onPress={() => {
@@ -218,7 +218,7 @@ const ReviewOrderScreen = ({ navigation }: any) => {
                 paddingVertical: 4,
               }}
             >
-              {addressData.text1}
+              {addressData.address}
             </Text>
             <Text
               style={{
@@ -229,7 +229,7 @@ const ReviewOrderScreen = ({ navigation }: any) => {
                 paddingVertical: 4,
               }}
             >
-              {addressData.text2}
+              {addressData.city}
             </Text>
             <Text
               style={{
@@ -240,7 +240,7 @@ const ReviewOrderScreen = ({ navigation }: any) => {
                 paddingVertical: 4,
               }}
             >
-              {addressData.text3}
+              {addressData.state}
             </Text>
             <Text
               style={{
@@ -251,7 +251,7 @@ const ReviewOrderScreen = ({ navigation }: any) => {
                 paddingVertical: 4,
               }}
             >
-              {addressData.text4}
+              {addressData.zipCode}
             </Text>
           </View>
         </View>
