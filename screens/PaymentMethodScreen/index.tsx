@@ -33,23 +33,26 @@ const PaymentMethodScreen = ({ navigation }: any) => {
           <Text style={{ fontFamily: theme.font.fontMedium, fontSize: 19 }}>
             Purchase Order
           </Text>
+          <Text style={{ fontFamily: theme.font.fontRegular, fontSize: 19 }}>
+            Address
+          </Text>
           <View style={{ marginTop: 20 }}>
             <Text style={{ fontFamily: theme.font.fontLight, fontSize: 13 }}>
-              {addressData?.text1}
+              {addressData?.address}
             </Text>
             <Text style={{ fontFamily: theme.font.fontLight, fontSize: 13 }}>
-              {addressData?.text2}
+              {addressData?.city}
             </Text>
             <Text style={{ fontFamily: theme.font.fontLight, fontSize: 13 }}>
-              {addressData?.text3}
+              {addressData?.state}
             </Text>
             <Text style={{ fontFamily: theme.font.fontLight, fontSize: 13 }}>
-              {addressData?.text4}
+              {addressData?.zipCode}
             </Text>
           </View>
         </View>
 
-        <View style={{ paddingHorizontal: 20 }}>
+        {/* <View style={{ paddingHorizontal: 20 }}>
           <Text
             style={{
               fontFamily: theme.font.fontLight,
@@ -72,8 +75,8 @@ const PaymentMethodScreen = ({ navigation }: any) => {
               borderRadius: 10,
             }}
           />
-        </View>
-        {errorText ? (
+        </View> */}
+        {/* {errorText ? (
           <Text
             style={{
               color: "red",
@@ -85,36 +88,7 @@ const PaymentMethodScreen = ({ navigation }: any) => {
           </Text>
         ) : (
           <></>
-        )}
-
-        <TouchableOpacity
-          onPress={() => {
-            if (purchaseOrderNumberState?.length < 1) {
-              setErrorText("This field is required");
-            } else {
-              setErrorText("");
-              navigation.navigate("ReviewOrderScreen");
-            }
-          }}
-          style={{
-            backgroundColor: theme.colors.btncolor,
-            paddingHorizontal: 0,
-            paddingVertical: 5,
-            width: 100,
-            margin: 20,
-          }}
-        >
-          <Text
-            style={{
-              fontFamily: theme.font.fontMedium,
-              fontSize: 12,
-              textAlign: "center",
-              color: "#fff",
-            }}
-          >
-            Review Order
-          </Text>
-        </TouchableOpacity>
+        )} */}
 
         <View style={{ paddingHorizontal: 20 }}>
           <Text
@@ -185,7 +159,35 @@ const PaymentMethodScreen = ({ navigation }: any) => {
             }}
           />
         </View>
-
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("ReviewOrderScreen");
+            // if (purchaseOrderNumberState?.length < 1) {
+            //   setErrorText("This field is required");
+            // } else {
+            //   setErrorText("");
+            //   navigation.navigate("ReviewOrderScreen");
+            // }
+          }}
+          style={{
+            backgroundColor: theme.colors.btncolor,
+            paddingHorizontal: 0,
+            paddingVertical: 5,
+            width: 100,
+            margin: 20,
+          }}
+        >
+          <Text
+            style={{
+              fontFamily: theme.font.fontMedium,
+              fontSize: 12,
+              textAlign: "center",
+              color: "#fff",
+            }}
+          >
+            Next
+          </Text>
+        </TouchableOpacity>
         <FooterSection />
       </ScrollView>
     </SafeAreaView>

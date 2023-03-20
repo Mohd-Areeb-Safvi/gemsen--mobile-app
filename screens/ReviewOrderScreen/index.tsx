@@ -21,6 +21,7 @@ import theme from "../../theme";
 import { List } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { addOrder } from "../../store/services/order";
 
 const ReviewOrderScreen = ({ navigation }: any) => {
   const [addressData] = useAtom(addressListJotai);
@@ -29,32 +30,49 @@ const ReviewOrderScreen = ({ navigation }: any) => {
   const [shippingMethods] = useAtom(shippingMethodsJotai);
   const [counter, setCounter] = useAtom(counterValueJotai);
 
-  console.log(addressData);
   const totalPrice = addToCart?.reduce((prev: any, curr: any) => {
-    return prev + curr.quantity * curr.price;
+    return prev + curr.quantity * curr.productDetails?.price;
   }, 0);
+  const taxAmount =
+    addressData?.state === "Sdf"
+      ? totalPrice * 0.13
+      : addressData?.state === "ABC"
+      ? totalPrice * 0.1
+      : 0;
   const data = [
     {
       id: 1,
       text1: "Cart Subtotal",
-      price: totalPrice.toString(),
+      price: `$${totalPrice.toString()}`,
     },
     {
       id: 2,
       text1: "Customer Discount",
-      price: "0",
+      price: "$0",
     },
     {
       id: 3,
       text1: "Shipping",
-      price: "0",
+      price: `$${shippingMethods?.price}`,
     },
     {
       id: 4,
       text1: "Tax",
-      price: "0",
+      price: `$${taxAmount}`,
+    },
+    {
+      id: 5,
+      text1: "Totol",
+      price: `$${totalPrice + shippingMethods?.price + taxAmount}`,
     },
   ];
+
+  const cartData = addToCart?.map((item) => {
+    return {
+      productId: item?.productId,
+      quantity: item?.quantity,
+    };
+  });
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <HeaderAfterLogin icon="menu" />
@@ -89,20 +107,24 @@ const ReviewOrderScreen = ({ navigation }: any) => {
                 </View>
               }
             >
-              {/* {addToCart?.map((item: any, index) => {
+              {addToCart?.map((item: any, index) => {
+                console.log("price", item?.productDetails?.price);
                 return (
                   <View
-                    key={item.data.id}
+                    key={item?._id}
                     style={{
                       flexDirection: "row",
                       justifyContent: "space-between",
                       backgroundColor: "#fff",
+                      alignItems: "center",
                       paddingHorizontal: 20,
                     }}
                   >
                     <View>
                       <Image
-                        source={{ uri: item?.data?.productImage[0] }}
+                        source={{
+                          uri: "https://elasticsearch-pwa-m2.magento-demo.amasty.com/media/catalog/product/cache/3119fdc86065b8c295ab10a11e7294fc/v/d/vd01-ll_main_2.jpg?auto=webp&format=pjpg&width=640&height=800&fit=cover",
+                        }}
                         style={{ width: 50, height: 80, resizeMode: "repeat" }}
                       />
                     </View>
@@ -114,7 +136,7 @@ const ReviewOrderScreen = ({ navigation }: any) => {
                           fontSize: 12,
                         }}
                       >
-                        {item.data.productName}
+                        {item?.name}
                       </Text>
                       <Text
                         style={{
@@ -133,12 +155,12 @@ const ReviewOrderScreen = ({ navigation }: any) => {
                           fontSize: 14,
                         }}
                       >
-                        ${item?.data?.price}
+                        ${item?.productDetails?.price}
                       </Text>
                     </View>
                   </View>
                 );
-              })} */}
+              })}
             </List.Accordion>
           </List.Section>
         </View>
@@ -169,7 +191,7 @@ const ReviewOrderScreen = ({ navigation }: any) => {
                       fontSize: 15,
                     }}
                   >
-                    ${item.price}
+                    {item.price}
                   </Text>
                 </View>
               </View>
@@ -302,10 +324,19 @@ const ReviewOrderScreen = ({ navigation }: any) => {
         </View>
         <TouchableOpacity
           onPress={async () => {
-            await AsyncStorage.removeItem(`cart${userData.name}`);
-            setCounter([]);
-            setAddToCart([]);
-            navigation.navigate("SucessOrderScreen");
+            // await AsyncStorage.removeItem(`cart${userData.name}`);
+            // setCounter([]);
+            // setAddToCart([]);
+            // navigation.navigate("SucessOrderScreen");
+
+            addOrder({
+              body: {
+                cartData,
+              },
+            }).then((res) => {
+              setAddToCart([]);
+              navigation.navigate("SucessOrderScreen");
+            });
           }}
           style={{
             backgroundColor: theme.colors.btncolor,

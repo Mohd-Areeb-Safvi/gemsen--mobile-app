@@ -30,7 +30,7 @@ const ShippingAddressScreen = ({ navigation }: any) => {
   const [selectType, setSelectType] = useState("");
   const [getAddressData, setGetAddressData] = useState([]);
   const [getShippingAddressData, setGetShippingAddressData] = useState([]);
-
+  console.log("shippingMethods", shippingMethods);
   const [addressDetails, setAddressDetails] = useState<any>([]);
   const [addressData, setAddressData] = useAtom(addressListJotai);
   const [addToCart, setAddToCart] = useAtom(cart);
@@ -95,13 +95,13 @@ const ShippingAddressScreen = ({ navigation }: any) => {
     },
     {
       id: 2,
-      price: 0,
+      price: 5,
       text1: "Free Ground",
       text2: "Ground",
     },
     {
       id: 3,
-      price: 0,
+      price: 10,
       text1: "Freight ",
       text2: "Air",
     },
@@ -445,7 +445,7 @@ const ShippingAddressScreen = ({ navigation }: any) => {
         </View>
         <View style={{ padding: 20 }}>
           <Text style={{ fontFamily: theme.font.fontLight, fontSize: 19 }}>
-            Shipping Address
+            Shipping Methods
           </Text>
           <View
             style={{ backgroundColor: "#f4f4f4", padding: 10, marginTop: 10 }}
