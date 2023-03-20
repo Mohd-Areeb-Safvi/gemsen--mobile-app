@@ -86,12 +86,9 @@ const DisplayIndividualProductDetails = ({ route, navigation }: any) => {
         quantity: counter,
       },
     }).then((res: any) => {
-      console.log(res.cart, "res");
-
-      const cartData = [...addToCart, res.cart];
-
-      // setAddToCart((prev: any) => [...prev, res.cart]);
-      setAddToCart(cartData);
+      getCart().then((res: any) => {
+        setAddToCart(res?.cartDetails || []);
+      });
     });
   };
 
