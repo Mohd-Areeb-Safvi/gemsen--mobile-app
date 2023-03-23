@@ -431,7 +431,9 @@ const DisplayProductsScreen = ({ route, navigation }: any) => {
                       </TouchableOpacity>
                       <Image
                         source={{
-                          uri: "https://elasticsearch-pwa-m2.magento-demo.amasty.com/media/catalog/product/cache/3119fdc86065b8c295ab10a11e7294fc/v/d/vd01-ll_main_2.jpg?auto=webp&format=pjpg&width=640&height=800&fit=cover",
+                          uri:
+                            item?.image ||
+                            "https://elasticsearch-pwa-m2.magento-demo.amasty.com/media/catalog/product/cache/3119fdc86065b8c295ab10a11e7294fc/v/d/vd01-ll_main_2.jpg?auto=webp&format=pjpg&width=640&height=800&fit=cover",
                         }}
                         style={{
                           width: "70%",
@@ -484,7 +486,9 @@ const DisplayProductsScreen = ({ route, navigation }: any) => {
                     </TouchableOpacity>
                     <Image
                       source={{
-                        uri: "https://elasticsearch-pwa-m2.magento-demo.amasty.com/media/catalog/product/cache/3119fdc86065b8c295ab10a11e7294fc/v/d/vd01-ll_main_2.jpg?auto=webp&format=pjpg&width=640&height=800&fit=cover",
+                        uri:
+                          item?.image ||
+                          "https://elasticsearch-pwa-m2.magento-demo.amasty.com/media/catalog/product/cache/3119fdc86065b8c295ab10a11e7294fc/v/d/vd01-ll_main_2.jpg?auto=webp&format=pjpg&width=640&height=800&fit=cover",
                       }}
                       style={{
                         width: "70%",
