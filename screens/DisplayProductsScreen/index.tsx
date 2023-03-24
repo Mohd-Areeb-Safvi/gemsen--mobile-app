@@ -16,6 +16,8 @@ import FooterSection from "../../components/FooterSection";
 import ModalDropdown from "react-native-modal-dropdown";
 import { getProducts } from "../../store/services/product";
 import { List } from "react-native-paper";
+import ProgressImage from "../../components/ProgressImage";
+import ABC from "../../components/ABC";
 
 const DisplayProductsScreen = ({ route, navigation }: any) => {
   const { data } = route.params;
@@ -429,18 +431,14 @@ const DisplayProductsScreen = ({ route, navigation }: any) => {
                       >
                         <Ionicons name="heart-outline" size={25} />
                       </TouchableOpacity>
-                      <Image
+                      <ProgressImage
+                        thumbnailSource={{
+                          uri: item?.image[0]?.url,
+                        }}
                         source={{
-                          uri:
-                            item?.image ||
-                            "https://elasticsearch-pwa-m2.magento-demo.amasty.com/media/catalog/product/cache/3119fdc86065b8c295ab10a11e7294fc/v/d/vd01-ll_main_2.jpg?auto=webp&format=pjpg&width=640&height=800&fit=cover",
+                          uri: item?.image[0]?.url,
                         }}
-                        style={{
-                          width: "70%",
-                          height: 200,
-                          resizeMode: "repeat",
-                          alignSelf: "center",
-                        }}
+                        style={{}}
                       />
                       <View
                         style={{
@@ -484,18 +482,15 @@ const DisplayProductsScreen = ({ route, navigation }: any) => {
                     >
                       <Ionicons name="heart-outline" size={25} />
                     </TouchableOpacity>
-                    <Image
+
+                    <ProgressImage
+                      thumbnailSource={{
+                        uri: item?.image[0]?.url,
+                      }}
                       source={{
-                        uri:
-                          item?.image ||
-                          "https://elasticsearch-pwa-m2.magento-demo.amasty.com/media/catalog/product/cache/3119fdc86065b8c295ab10a11e7294fc/v/d/vd01-ll_main_2.jpg?auto=webp&format=pjpg&width=640&height=800&fit=cover",
+                        uri: item?.image[0]?.url,
                       }}
-                      style={{
-                        width: "70%",
-                        height: 200,
-                        resizeMode: "repeat",
-                        alignSelf: "center",
-                      }}
+                      style={{}}
                     />
                     <View
                       style={{
