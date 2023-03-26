@@ -20,6 +20,7 @@ import { cart } from "../../stores/user";
 import { getSingleProducts } from "../../store/services/product";
 import { addToCartDetails } from "../../store/services/cart";
 import { getCart } from "../../store/services/cart";
+import ProgressImage from "../../components/ProgressImage";
 const DisplayIndividualProductDetails = ({ route, navigation }: any) => {
   const { data } = route.params;
   const [displayProductDetails, setDisplayProductDetails] = useState<any>({});
@@ -74,6 +75,7 @@ const DisplayIndividualProductDetails = ({ route, navigation }: any) => {
         id: data?._id,
       },
     }).then((res: any) => {
+      console.log("res", res);
       setDisplayProductDetails(res?.products);
     });
     return () => {};
@@ -114,37 +116,6 @@ const DisplayIndividualProductDetails = ({ route, navigation }: any) => {
     >
       <HeaderAfterLogin icon="menu" />
 
-      {/* <Animated.View
-        style={[
-          styles.fadingContainer,
-          {
-            opacity: fadeAnim,
-          },
-        ]}
-      >
-        <Text style={styles.fadingText}>Fading View!</Text>
-      </Animated.View>
-
-      <Animated.View
-        style={[
-          {
-            transform: [
-              {
-                translateY: fadeAnim.interpolate({
-                  inputRange: [0, 0.3, 0.6, 1],
-                  outputRange: [0, 20, 50, -60],
-                }),
-              },
-            ],
-          },
-        ]}
-      >
-        <Text>Fading View!</Text>
-      </Animated.View> */}
-      {/* <View style={styles.buttonRow}>
-        <Button title="Fade In View" onPress={fadeIn} />
-        <Button title="Fade Out View" onPress={fadeOut} />
-      </View> */}
       <ScrollView>
         <View style={{ marginTop: 20 }}>
           <Text
@@ -163,131 +134,29 @@ const DisplayIndividualProductDetails = ({ route, navigation }: any) => {
               {displayProductDetails.name}
             </Text>
           </Text>
-          <View style={{ width }}>
-            <ScrollView
-              horizontal={true}
-              pagingEnabled={true}
-              showsHorizontalScrollIndicator={false}
-              onScroll={Animated.event(
-                [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-                { useNativeDriver: false }
-              )}
-              scrollEventThrottle={16}
-            >
-              <Image
-                source={{
-                  uri: "https://elasticsearch-pwa-m2.magento-demo.amasty.com/media/catalog/product/cache/3119fdc86065b8c295ab10a11e7294fc/v/d/vd01-ll_main_2.jpg?auto=webp&format=pjpg&width=640&height=800&fit=cover",
-                }}
-                style={{ width, height: 300, resizeMode: "contain" }}
-              />
-              {/* {data.productImage.map((source: any, i: any) => {
+          <View style={{ width, marginVertical: 20 }}>
+            <ScrollView horizontal>
+              {displayProductDetails?.image?.map((i) => {
                 return (
-                  <Image
-                    key={i}
-                    style={{ width, height: 400, resizeMode: "contain" }}
-                    source={{ uri: source }}
+                  <ProgressImage
+                    key={i?.url}
+                    thumbnailSource={{
+                      uri: i?.url,
+                    }}
+                    source={{
+                      uri: i?.url,
+                    }}
+                    style={{
+                      width: width * 0.8,
+                      height: 300,
+                      resizeMode: "cover",
+                      marginRight: 30,
+                    }}
                   />
                 );
-              })} */}
+              })}
             </ScrollView>
-            {/* <View style={{ flexDirection: "row", alignSelf: "center" }}>
-              {data.productImage.map((_: any, index: any) => {
-                let opacity = position.interpolate({
-                  inputRange: [index - 1, index, index + 1],
-                  outputRange: [0.1, 1, 0.1],
-                  extrapolate: "clamp",
-                });
 
-                let bg = position.interpolate({
-                  inputRange: [index - 1, index, index + 1],
-                  outputRange: ["red", "green", "orange"],
-                  extrapolate: "clamp",
-                });
-
-                return (
-                  <Animated.View
-                    key={index}
-                    style={{
-                      opacity,
-                      height: 10,
-                      width: 10,
-                      backgroundColor: "#595959",
-                      margin: 8,
-                      borderRadius: 5,
-                    }}
-                  />
-                );
-              })}
-            </View> */}
-
-            {/* <Text
-              style={{
-                fontFamily: theme.font.fontMedium,
-                fontSize: 18,
-                padding: 20,
-              }}
-            >
-              Fashion Color
-            </Text>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                paddingLeft: 20,
-              }}
-            >
-              {["red", "green"]?.map((item) => {
-                return (
-                  <View
-                    style={{
-                      backgroundColor: item,
-                      width: 50,
-                      height: 50,
-                      marginRight: 20,
-                      borderWidth: 1,
-                      borderColor: "#000",
-                    }}
-                    key={item}
-                  ></View>
-                );
-              })}
-            </View>
-            <Text
-              style={{
-                fontFamily: theme.font.fontMedium,
-                fontSize: 18,
-                padding: 20,
-              }}
-            >
-              Fashion Size
-            </Text>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                paddingLeft: 20,
-              }}
-            >
-              {["S", "M"]?.map((item) => {
-                return (
-                  <View
-                    style={{
-                      backgroundColor: item,
-                      width: 50,
-                      height: 50,
-                      marginRight: 20,
-                      borderWidth: 1,
-                      borderColor: "#000",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                    key={item}
-                  >
-                    <Text>{item}</Text>
-                  </View>
-                );
-              })}
-            </View> */}
             <View
               style={{
                 flexDirection: "row",
